@@ -10,6 +10,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -49,4 +50,23 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/products/{product}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
     Route::delete('/products/{product}/reviews', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+});
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', Admin\DashboardController::class)->name('dashboard');
+
+    Route::resource('products', Admin\ProductController::class)->except('show');
+    Route::post('products/{product}/variants', [Admin\VariantController::class, 'store'])->name('variants.store');
+    Route::patch('variants/{variant}', [Admin\VariantController::class, 'update'])->name('variants.update');
+    Route::delete('variants/{variant}', [Admin\VariantController::class, 'destroy'])->name('variants.destroy');
+
+    Route::get('orders', [Admin\OrderController::class, 'index'])->name('orders.index');
+    Route::get('orders/{order}', [Admin\OrderController::class, 'show'])->name('orders.show');
+    Route::patch('orders/{order}/status', [Admin\OrderController::class, 'updateStatus'])->name('orders.status');
+
+    Route::get('users', [Admin\UserController::class, 'index'])->name('users.index');
+    Route::patch('users/{user}/role', [Admin\UserController::class, 'updateRole'])->name('users.role');
+
+    Route::get('reviews', [Admin\ReviewController::class, 'index'])->name('reviews.index');
+    Route::delete('reviews/{review}', [Admin\ReviewController::class, 'destroy'])->name('reviews.destroy');
 });

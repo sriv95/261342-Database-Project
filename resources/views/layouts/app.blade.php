@@ -14,6 +14,9 @@
 
             <div class="ml-auto flex items-center gap-4 text-sm">
                 @auth
+                    @if (auth()->user()->isAdmin())
+                        <a href="{{ route('admin.dashboard') }}" class="rounded bg-gray-900 px-3 py-1 font-medium text-white hover:bg-gray-700">Admin</a>
+                    @endif
                     <a href="{{ route('wishlist.index') }}" class="font-medium hover:text-emerald-700">Wish list</a>
                     <a href="{{ route('orders.index') }}" class="font-medium hover:text-emerald-700">Orders</a>
                     <a href="{{ route('cart.index') }}" class="font-medium hover:text-emerald-700">Cart @if ($cartCount)<span class="ml-1 rounded-full bg-emerald-600 px-2 py-0.5 text-xs text-white">{{ $cartCount }}</span>@endif</a>
@@ -34,9 +37,9 @@
         @if (session('status'))
             <div class="mb-6 rounded border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">{{ session('status') }}</div>
         @endif
-        @if ($errors->hasAny(['stock', 'address_id', 'review']))
+        @if ($errors->hasAny(['stock', 'address_id', 'review', 'variant', 'user']))
             <div class="mb-6 rounded border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-                @foreach (['stock', 'address_id', 'review'] as $key)@foreach ($errors->get($key) as $message)<p>{{ $message }}</p>@endforeach @endforeach
+                @foreach (['stock', 'address_id', 'review', 'variant', 'user'] as $key)@foreach ($errors->get($key) as $message)<p>{{ $message }}</p>@endforeach @endforeach
             </div>
         @endif
         @yield('content')
