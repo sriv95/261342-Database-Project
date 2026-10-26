@@ -1,0 +1,105 @@
+erDiagram
+    users ||--o{ addresses : "has"
+    users ||--o| carts : "owns"
+    users ||--o{ orders : "places"
+    users ||--o{ reviews : "writes"
+    users ||--o{ wishlists : "saves"
+    addresses ||--o{ orders : "ships to"
+    categories ||--o{ products : "classifies"
+    brands ||--o{ products : "makes"
+    products ||--|{ product_variants : "offered as"
+    products ||--o{ product_images : "shown by"
+    products ||--o{ reviews : "receives"
+    products ||--o{ wishlists : "saved in"
+    carts ||--o{ cart_items : "contains"
+    product_variants ||--o{ cart_items : "added as"
+    orders ||--|{ order_items : "contains"
+    product_variants ||--o{ order_items : "sold as"
+
+    users {
+        bigint id PK
+        varchar name
+        varchar email UK
+        varchar password
+        varchar phone
+        enum role "customer, admin"
+    }
+    addresses {
+        bigint id PK
+        bigint user_id FK
+        varchar recipient
+        varchar line1
+        varchar district
+        varchar province
+        varchar postal_code
+        boolean is_default
+        timestamp deleted_at "soft delete"
+    }
+    categories {
+        bigint id PK
+        varchar name
+        varchar slug UK
+    }
+    brands {
+        bigint id PK
+        varchar name UK
+    }
+    products {
+        bigint id PK
+        bigint category_id FK
+        bigint brand_id FK
+        varchar name
+        text description
+        boolean is_active
+    }
+    product_variants {
+        bigint id PK
+        bigint product_id FK
+        varchar sku UK
+        varchar option_name
+        decimal price
+        int stock_qty
+    }
+    product_images {
+        bigint id PK
+        bigint product_id FK
+        varchar path
+        boolean is_primary
+    }
+    carts {
+        bigint id PK
+        bigint user_id FK, UK
+    }
+    cart_items {
+        bigint id PK
+        bigint cart_id FK
+        bigint variant_id FK
+        int quantity
+    }
+    orders {
+        bigint id PK
+        bigint user_id FK
+        bigint address_id FK
+        decimal total
+        enum status "pending, paid, shipped, done, cancelled"
+        timestamp placed_at
+    }
+    order_items {
+        bigint id PK
+        bigint order_id FK
+        bigint variant_id FK
+        int quantity
+        decimal unit_price "price snapshot"
+    }
+    wishlists {
+        bigint user_id PK, FK
+        bigint product_id PK, FK
+        timestamp created_at
+    }
+    reviews {
+        bigint id PK
+        bigint user_id FK
+        bigint product_id FK
+        tinyint rating "1 to 5"
+        text comment
+    }
