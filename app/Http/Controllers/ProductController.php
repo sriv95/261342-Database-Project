@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -55,6 +56,16 @@ class ProductController extends Controller
             ->loadAvg('reviews', 'rating')
             ->loadCount('reviews');
 
-        return view('products.show', ['product' => $product]);
+        $user = auth()->user();
+
+        return view('products.show', [
+            'product' => $product,
+            'wished' => $user?->wishlistProducts()->whereKey($product->id)->exists() ?? false,
+            'canReview' => $user ? OrderItem::query()
+                ->whereHas('order', fn ($q) => $q->where('user_id', $user->id)->where('status', '!=', 'cancelled'))
+                ->whereHas('variant', fn ($q) => $q->where('product_id', $product->id))
+                ->exists() : false,
+            'myReview' => $user ? $product->reviews->firstWhere('user_id', $user->id) : null,
+        ]);
     }
 }
