@@ -36,7 +36,8 @@ class ProductController extends Controller
         $data = $request->validate([
             ...$this->productRules(),
             'sku' => ['required', 'string', 'max:40', 'unique:product_variants,sku'],
-            'option_name' => ['required', 'string', 'max:60'],
+            'color' => ['nullable', 'string', 'max:40', 'required_without:option_name'],
+            'option_name' => ['nullable', 'string', 'max:60', 'required_without:color'],
             'price' => ['required', 'numeric', 'min:0', 'max:9999999'],
             'stock_qty' => ['required', 'integer', 'min:0'],
         ]);
@@ -46,7 +47,7 @@ class ProductController extends Controller
                 ...collect($data)->only(['category_id', 'brand_id', 'name', 'description'])->all(),
                 'is_active' => $request->boolean('is_active'),
             ]);
-            $product->variants()->create(collect($data)->only(['sku', 'option_name', 'price', 'stock_qty'])->all());
+            $product->variants()->create(collect($data)->only(['sku', 'color', 'option_name', 'price', 'stock_qty'])->all());
 
             return $product;
         });

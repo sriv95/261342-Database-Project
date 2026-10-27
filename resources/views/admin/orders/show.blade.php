@@ -22,7 +22,7 @@
     <div class="divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white">
         @foreach ($order->items as $item)
             <div class="flex justify-between p-3 text-sm">
-                <span>{{ $item->variant->product->name }} <span class="text-gray-500">({{ $item->variant->option_name }}) · ฿{{ number_format($item->unit_price) }} × {{ $item->quantity }}</span></span>
+                <span>{{ $item->variant->product->name }} <span class="text-gray-500">({{ $item->variant->label }}) · ฿{{ number_format($item->unit_price) }} × {{ $item->quantity }}</span></span>
                 <span class="font-semibold">฿{{ number_format($item->unit_price * $item->quantity) }}</span>
             </div>
         @endforeach

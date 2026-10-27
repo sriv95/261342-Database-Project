@@ -60,7 +60,7 @@
             <table class="w-full text-sm">
                 @forelse ($lowStock as $v)
                     <tr class="border-t border-gray-100">
-                        <td class="py-1"><a href="{{ route('admin.products.edit', $v->product_id) }}" class="hover:text-emerald-700">{{ $v->product->name }}</a> <span class="text-gray-500">{{ $v->option_name }}</span></td>
+                        <td class="py-1"><a href="{{ route('admin.products.edit', $v->product_id) }}" class="hover:text-emerald-700">{{ $v->product->name }}</a> <span class="text-gray-500">{{ $v->label }}</span></td>
                         <td class="text-right font-semibold {{ $v->stock_qty === 0 ? 'text-red-600' : 'text-amber-600' }}">{{ $v->stock_qty }}</td>
                     </tr>
                 @empty

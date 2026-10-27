@@ -14,7 +14,7 @@
                     <img src="{{ asset($item->variant->product->images->first()?->path ?? 'images/placeholder.svg') }}" class="h-16 w-16 rounded object-cover" alt="">
                     <div class="flex-1">
                         <a href="{{ route('products.show', $item->variant->product) }}" class="font-medium hover:text-emerald-700">{{ $item->variant->product->name }}</a>
-                        <p class="text-sm text-gray-500">{{ $item->variant->option_name }} · ฿{{ number_format($item->variant->price) }}</p>
+                        <p class="text-sm text-gray-500">{{ $item->variant->label }} · ฿{{ number_format($item->variant->price) }}</p>
                         @if ($item->quantity > $item->variant->stock_qty)
                             <p class="text-sm text-red-600">Only {{ $item->variant->stock_qty }} left in stock</p>
                         @endif

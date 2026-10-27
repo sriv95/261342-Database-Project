@@ -58,51 +58,29 @@ class DatabaseSeeder extends Seeder
         $brands = collect(['Yonex', 'Li-Ning', 'Victor', 'Mizuno', 'Kawasaki'])
             ->mapWithKeys(fn ($name) => [$name => Brand::create(['name' => $name])]);
 
-        // [category, brand, name, description, [[option, price, stock], ...]]
-        $catalog = [
-            ['Rackets', 'Yonex', 'Astrox 99 Pro', 'Head-heavy attacking racket for powerful smashes.', [['3U-G5', 7900, 12], ['4U-G5', 7900, 8]]],
-            ['Rackets', 'Yonex', 'Nanoflare 800', 'Head-light speed racket for fast drives and defence.', [['4U-G5', 6900, 10], ['5U-G5', 6900, 6]]],
-            ['Rackets', 'Yonex', 'Arcsaber 11 Pro', 'Balanced control racket with great feel.', [['3U-G5', 6500, 9], ['4U-G5', 6500, 7]]],
-            ['Rackets', 'Li-Ning', 'Axforce 80', 'Stable all-round power racket.', [['3U-G5', 5200, 10], ['4U-G5', 5200, 10]]],
-            ['Rackets', 'Li-Ning', 'Windstorm 72', 'Light and quick for doubles play.', [['4U-G5', 3900, 14]]],
-            ['Rackets', 'Victor', 'Thruster K 9900', 'Powerful head-heavy racket.', [['3U-G5', 5800, 8], ['4U-G5', 5800, 8]]],
-            ['Rackets', 'Victor', 'Auraspeed 90K', 'Fast swing speed with solid control.', [['3U-G5', 5400, 6]]],
-            ['Rackets', 'Kawasaki', 'Honor S5', 'Great value entry racket.', [['4U-G5', 1290, 25], ['5U-G5', 1290, 20]]],
-            ['Shoes', 'Yonex', 'Power Cushion 65 Z3', 'Cushioned court shoe with strong grip.', [['EU 40', 4200, 6], ['EU 42', 4200, 8], ['EU 44', 4200, 5]]],
-            ['Shoes', 'Yonex', 'Eclipsion Z3', 'Lightweight shoe for quick footwork.', [['EU 40', 3900, 5], ['EU 42', 3900, 7], ['EU 44', 3900, 4]]],
-            ['Shoes', 'Victor', 'P9200', 'Stable shoe with wide base.', [['EU 41', 3600, 6], ['EU 43', 3600, 6]]],
-            ['Shoes', 'Mizuno', 'Wave Claw 2', 'Responsive shoe with Wave plate.', [['EU 40', 3300, 5], ['EU 42', 3300, 9], ['EU 44', 3300, 4]]],
-            ['Shoes', 'Li-Ning', 'Saga Lite', 'Breathable everyday court shoe.', [['EU 41', 2400, 10], ['EU 43', 2400, 10]]],
-            ['Shuttlecocks', 'Yonex', 'Aerosensa 30', 'Premium feather shuttle, tournament grade.', [['Speed 77 (12 pcs)', 1650, 40], ['Speed 78 (12 pcs)', 1650, 30]]],
-            ['Shuttlecocks', 'Victor', 'Gold No.1', 'Durable training feather shuttle.', [['Speed 77 (12 pcs)', 1100, 50]]],
-            ['Shuttlecocks', 'Kawasaki', 'Nylon Plastic Tube', 'Long-lasting nylon shuttle for practice.', [['Medium (6 pcs)', 350, 60], ['Fast (6 pcs)', 350, 60]]],
-            ['Strings', 'Yonex', 'BG 65', 'Classic durable string.', [['0.70mm White', 280, 50], ['0.70mm Yellow', 280, 40]]],
-            ['Strings', 'Yonex', 'BG 80 Power', 'High repulsion string for power.', [['0.68mm White', 420, 30], ['0.68mm Yellow', 420, 30]]],
-            ['Strings', 'Victor', 'VBS-66N', 'Control-oriented string with crisp feel.', [['0.66mm White', 330, 35]]],
-            ['Grips & Accessories', 'Yonex', 'Super Grap (3 pcs)', 'Overgrip, tacky and absorbent.', [['White', 150, 80], ['Black', 150, 80]]],
-            ['Grips & Accessories', 'Victor', 'Wrist Band', 'Cotton wrist band.', [['Black', 120, 40]]],
-            ['Apparel & Bags', 'Yonex', 'Match Tournament Bag', '6-racket bag with shoe compartment.', [['Black/Red', 2900, 8], ['Navy', 2900, 6]]],
-            ['Apparel & Bags', 'Li-Ning', 'Team Polo', 'Quick-dry polo for training.', [['M', 790, 15], ['L', 790, 15], ['XL', 790, 10]]],
-            ['Apparel & Bags', 'Kawasaki', 'Sport Shorts', 'Lightweight stretch shorts.', [['M', 450, 20], ['L', 450, 20]]],
-        ];
-
-        foreach ($catalog as $n => [$cat, $brand, $name, $desc, $variants]) {
-            $product = Product::create([
-                'category_id' => $categories[$cat]->id,
-                'brand_id' => $brands[$brand]->id,
-                'name' => $name,
-                'description' => $desc,
-            ]);
-
-            $product->images()->create(['path' => 'images/placeholder.svg', 'is_primary' => true]);
-
-            foreach ($variants as $v => [$option, $price, $stock]) {
-                $product->variants()->create([
-                    'sku' => sprintf('SKU-%03d-%d', $n + 1, $v + 1),
-                    'option_name' => $option,
-                    'price' => $price,
-                    'stock_qty' => $stock,
+        // One file per brand in database/seeders/data/, see data/README.md for the format.
+        foreach (glob(__DIR__.'/data/*.php') as $file) {
+            foreach (require $file as $item) {
+                $product = Product::create([
+                    'category_id' => $categories[$item['category']]->id,
+                    'brand_id' => $brands[$item['brand']]->id,
+                    'name' => preg_replace('/^'.preg_quote($item['brand'], '/').'\s+/i', '', $item['name']),
+                    'description' => $item['description'],
                 ]);
+
+                foreach ($item['images'] ?: ['images/placeholder.svg'] as $i => $path) {
+                    $product->images()->create(['path' => $path, 'is_primary' => $i === 0]);
+                }
+
+                foreach ($item['variants'] as $variant) {
+                    $product->variants()->create([
+                        'sku' => $variant['sku'],
+                        'color' => $variant['color'] ?? null,
+                        'option_name' => $variant['option'] ?? null,
+                        'price' => $variant['price'],
+                        'stock_qty' => $variant['stock'],
+                    ]);
+                }
             }
         }
     }

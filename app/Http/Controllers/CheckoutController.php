@@ -57,7 +57,7 @@ class CheckoutController extends Controller
                 foreach ($items as $item) {
                     $variant = $variants[$item->variant_id];
                     if ($variant->stock_qty < $item->quantity) {
-                        throw new \RuntimeException("Not enough stock for {$variant->product->name} ({$variant->option_name}).");
+                        throw new \RuntimeException("Not enough stock for {$variant->product->name} ({$variant->label}).");
                     }
                     $total += $item->quantity * $variant->price;
                 }

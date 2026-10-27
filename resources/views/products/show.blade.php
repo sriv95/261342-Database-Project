@@ -27,32 +27,92 @@
             @endif
             <p class="mt-4 text-gray-700">{{ $product->description }}</p>
 
-            <h2 class="mt-6 mb-2 text-sm font-semibold uppercase text-gray-500">Options</h2>
-            <ul class="divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white">
-                @foreach ($product->variants as $variant)
-                    <li class="flex items-center justify-between px-4 py-3 text-sm">
-                        <span class="font-medium">{{ $variant->option_name }}</span>
-                        <span class="flex items-center gap-4">
-                            <span class="font-semibold">฿{{ number_format($variant->price) }}</span>
-                            @if ($variant->stock_qty > 0)
-                                <span class="text-emerald-600">{{ $variant->stock_qty }} in stock</span>
-                                @auth
-                                    <form method="POST" action="{{ route('cart.store') }}" class="flex items-center gap-2">
-                                        @csrf
-                                        <input type="hidden" name="variant_id" value="{{ $variant->id }}">
-                                        <input type="number" name="quantity" value="1" min="1" max="{{ min(20, $variant->stock_qty) }}" class="w-14 rounded border border-gray-300 px-2 py-1">
-                                        <button class="rounded bg-emerald-600 px-3 py-1 text-white hover:bg-emerald-700">Add</button>
-                                    </form>
-                                @else
-                                    <a href="{{ route('login') }}" class="text-emerald-700 hover:underline">Log in to buy</a>
-                                @endauth
-                            @else
-                                <span class="text-red-500">Out of stock</span>
-                            @endif
-                        </span>
-                    </li>
-                @endforeach
-            </ul>
+            @php
+                $variantData = $product->variants->map(fn ($v) => [
+                    'id' => $v->id, 'color' => $v->color, 'option' => $v->option_name,
+                    'price' => (float) $v->price, 'stock' => $v->stock_qty,
+                ])->values();
+                $colors = $variantData->pluck('color')->filter()->unique()->values();
+                $options = $variantData->pluck('option')->filter()->unique()->values();
+            @endphp
+            <div id="picker" class="mt-6 space-y-4" data-variants='@json($variantData)'>
+                @if ($colors->isNotEmpty())
+                    <div>
+                        <h2 class="mb-2 text-sm font-semibold uppercase text-gray-500">Color: <span id="color-label" class="normal-case text-gray-900"></span></h2>
+                        <div class="flex flex-wrap gap-2" id="color-pills">
+                            @foreach ($colors as $color)
+                                <button type="button" data-color="{{ $color }}" class="pill rounded-full border px-3 py-1 text-sm">{{ $color }}</button>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+                @if ($options->isNotEmpty())
+                    <div>
+                        <h2 class="mb-2 text-sm font-semibold uppercase text-gray-500">{{ $colors->isNotEmpty() ? 'Option' : 'Options' }}</h2>
+                        <div class="flex flex-wrap gap-2" id="option-pills">
+                            @foreach ($options as $option)
+                                <button type="button" data-option="{{ $option }}" class="pill rounded-md border px-3 py-1 text-sm">{{ $option }}</button>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+                <div class="flex flex-wrap items-center gap-4 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm">
+                    <span id="pick-price" class="text-lg font-semibold"></span>
+                    <span id="pick-stock"></span>
+                    <form id="pick-form" method="POST" action="{{ route('cart.store') }}" class="flex items-center gap-2">
+                        @csrf
+                        <input type="hidden" name="variant_id" id="pick-id">
+                        @auth
+                            <input type="number" name="quantity" id="pick-qty" value="1" min="1" class="w-16 rounded border border-gray-300 px-2 py-1">
+                            <button id="pick-add" class="rounded bg-emerald-600 px-4 py-1.5 text-white hover:bg-emerald-700 disabled:bg-gray-300">Add to cart</button>
+                        @else
+                            <a href="{{ route('login') }}" class="text-emerald-700 hover:underline">Log in to buy</a>
+                        @endauth
+                    </form>
+                </div>
+            </div>
+            <script>
+                (() => {
+                    const root = document.getElementById('picker');
+                    const variants = JSON.parse(root.dataset.variants);
+                    let sel = variants.find(v => v.stock > 0) || variants[0];
+                    const find = (color, option) => variants.find(v => v.color === color && v.option === option);
+                    // pick a dimension value; if the combo does not exist, keep the value and take the first variant that has it
+                    const choose = (key, value) => {
+                        const next = {color: sel.color, option: sel.option, [key]: value};
+                        sel = find(next.color, next.option)
+                            || variants.find(v => v[key] === value && v.stock > 0)
+                            || variants.find(v => v[key] === value);
+                        render();
+                    };
+                    const render = () => {
+                        root.querySelectorAll('[data-color]').forEach(b => style(b, b.dataset.color === sel.color,
+                            variants.some(v => v.color === b.dataset.color && v.stock > 0)));
+                        root.querySelectorAll('[data-option]').forEach(b => style(b, b.dataset.option === sel.option,
+                            variants.some(v => v.option === b.dataset.option && (sel.color === null || v.color === sel.color) && v.stock > 0)));
+                        const label = document.getElementById('color-label');
+                        if (label) label.textContent = sel.color;
+                        document.getElementById('pick-price').textContent = '฿' + sel.price.toLocaleString('en-US', {maximumFractionDigits: 0});
+                        const stock = document.getElementById('pick-stock');
+                        stock.textContent = sel.stock > 0 ? sel.stock + ' in stock' : 'Out of stock';
+                        stock.className = sel.stock > 0 ? 'text-emerald-600' : 'text-red-500';
+                        document.getElementById('pick-id').value = sel.id;
+                        const qty = document.getElementById('pick-qty'), add = document.getElementById('pick-add');
+                        if (qty) { qty.max = Math.min(20, sel.stock); qty.value = Math.min(+qty.value || 1, qty.max || 1); qty.disabled = add.disabled = sel.stock < 1; }
+                    };
+                    const style = (btn, active, available) => {
+                        btn.className = 'pill border px-3 py-1 text-sm ' + (btn.dataset.color !== undefined ? 'rounded-full ' : 'rounded-md ')
+                            + (active ? 'border-emerald-600 bg-emerald-600 text-white' : 'border-gray-300 bg-white hover:border-emerald-500')
+                            + (available ? '' : ' opacity-50 line-through');
+                    };
+                    root.addEventListener('click', e => {
+                        const b = e.target.closest('.pill');
+                        if (!b) return;
+                        b.dataset.color !== undefined ? choose('color', b.dataset.color) : choose('option', b.dataset.option);
+                    });
+                    render();
+                })();
+            </script>
         </div>
     </div>
 

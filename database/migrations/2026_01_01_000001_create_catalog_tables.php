@@ -35,7 +35,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->string('sku', 40)->unique();
-            $table->string('option_name', 60);
+            $table->string('color', 40)->nullable();
+            $table->string('option_name', 60)->nullable();
             $table->decimal('price', 10, 2);
             $table->unsignedInteger('stock_qty')->default(0);
             $table->timestamps();

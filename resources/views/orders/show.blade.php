@@ -14,7 +14,7 @@
             <div class="flex justify-between p-4 text-sm">
                 <div>
                     <a href="{{ route('products.show', $item->variant->product) }}" class="font-medium hover:text-emerald-700">{{ $item->variant->product->name }}</a>
-                    <p class="text-gray-500">{{ $item->variant->option_name }} · ฿{{ number_format($item->unit_price) }} × {{ $item->quantity }}</p>
+                    <p class="text-gray-500">{{ $item->variant->label }} · ฿{{ number_format($item->unit_price) }} × {{ $item->quantity }}</p>
                 </div>
                 <p class="font-semibold">฿{{ number_format($item->unit_price * $item->quantity) }}</p>
             </div>

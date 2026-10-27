@@ -27,7 +27,8 @@
                 <form method="POST" action="{{ route('admin.variants.update', $variant) }}" class="flex flex-wrap items-end gap-2">
                     @csrf @method('PATCH')
                     <label>SKU<input name="sku" value="{{ $variant->sku }}" required class="mt-1 block w-32 rounded border border-gray-300 px-2 py-1"></label>
-                    <label>Option<input name="option_name" value="{{ $variant->option_name }}" required class="mt-1 block w-36 rounded border border-gray-300 px-2 py-1"></label>
+                    <label>Color<input name="color" value="{{ $variant->color }}" class="mt-1 block w-28 rounded border border-gray-300 px-2 py-1"></label>
+                    <label>Option<input name="option_name" value="{{ $variant->option_name }}" class="mt-1 block w-32 rounded border border-gray-300 px-2 py-1"></label>
                     <label>Price<input name="price" type="number" step="0.01" min="0" value="{{ $variant->price }}" required class="mt-1 block w-28 rounded border border-gray-300 px-2 py-1"></label>
                     <label>Stock<input name="stock_qty" type="number" min="0" value="{{ $variant->stock_qty }}" required class="mt-1 block w-20 rounded border border-gray-300 px-2 py-1"></label>
                     <button class="rounded bg-gray-900 px-3 py-1.5 text-white hover:bg-gray-700">Save</button>
@@ -44,12 +45,13 @@
     <form method="POST" action="{{ route('admin.variants.store', $product) }}" class="mt-3 flex flex-wrap items-end gap-2 rounded-lg border border-dashed border-gray-300 p-3 text-sm">
         @csrf
         <label>SKU<input name="sku" required class="mt-1 block w-32 rounded border border-gray-300 px-2 py-1"></label>
-        <label>Option<input name="option_name" required class="mt-1 block w-36 rounded border border-gray-300 px-2 py-1"></label>
+        <label>Color<input name="color" class="mt-1 block w-28 rounded border border-gray-300 px-2 py-1"></label>
+        <label>Option<input name="option_name" class="mt-1 block w-32 rounded border border-gray-300 px-2 py-1"></label>
         <label>Price<input name="price" type="number" step="0.01" min="0" required class="mt-1 block w-28 rounded border border-gray-300 px-2 py-1"></label>
         <label>Stock<input name="stock_qty" type="number" min="0" value="0" required class="mt-1 block w-20 rounded border border-gray-300 px-2 py-1"></label>
         <button class="rounded bg-emerald-600 px-3 py-1.5 text-white hover:bg-emerald-700">Add variant</button>
     </form>
-    @foreach (['sku', 'option_name', 'price', 'stock_qty'] as $f)
+    @foreach (['sku', 'color', 'option_name', 'price', 'stock_qty'] as $f)
         @error($f) <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
     @endforeach
 @endsection

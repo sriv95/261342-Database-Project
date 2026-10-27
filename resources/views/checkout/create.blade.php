@@ -38,7 +38,7 @@
             <ul class="space-y-2 text-sm">
                 @foreach ($items as $item)
                     <li class="flex justify-between gap-2">
-                        <span>{{ $item->variant->product->name }} <span class="text-gray-500">({{ $item->variant->option_name }}) × {{ $item->quantity }}</span></span>
+                        <span>{{ $item->variant->product->name }} <span class="text-gray-500">({{ $item->variant->label }}) × {{ $item->quantity }}</span></span>
                         <span>฿{{ number_format($item->quantity * $item->variant->price) }}</span>
                     </li>
                 @endforeach

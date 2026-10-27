@@ -25,7 +25,7 @@ brands(#id, name UK)
 
 products(#id, category_id → categories, brand_id → brands, name, description?, is_active)
 
-product_variants(#id, product_id → products, sku UK, option_name, price, stock_qty)
+product_variants(#id, product_id → products, sku UK, color?, option_name?, price, stock_qty)
 
 product_images(#id, product_id → products, path, is_primary)
 
@@ -105,7 +105,8 @@ reviews(#id, user_id → users, product_id → products, rating, comment?, UK(us
 | id | BIGINT UNSIGNED | no | PK |
 | product_id | BIGINT UNSIGNED | no | FK products, ON DELETE CASCADE |
 | sku | VARCHAR(40) | no | UK |
-| option_name | VARCHAR(60) | no | e.g. `4U-G5`, `EU 42` |
+| color | VARCHAR(40) | yes | e.g. `Black`, `White/Red`; shown as colour choice |
+| option_name | VARCHAR(60) | yes | size/spec, e.g. `4U-G5`, `EU 42`; at least one of `color` / `option_name` is set (checked in the app) |
 | price | DECIMAL(10,2) | no | |
 | stock_qty | INT UNSIGNED | no | default 0 |
 | created_at, updated_at | TIMESTAMP | yes | |
@@ -193,7 +194,7 @@ Composite UNIQUE (`user_id`, `product_id`): one review per user per product.
 - **Deliberate redundancy**:
   - `order_items.unit_price` copies `product_variants.price` so history stays correct after a price change.
   - `orders.total` equals the sum of `quantity × unit_price` over its items. It is stored for fast reports and set once at checkout.
-- Product attributes vary by category (weight for rackets, size for shoes). They are stored as one text `option_name` per variant rather than an attribute-value table, which keeps the model small for a shop of this size.
+- Product attributes vary by category (weight for rackets, size for shoes). They are stored as two text columns per variant, `color` and `option_name` (size or spec), rather than an attribute-value table, which keeps the model small for a shop of this size.
 
 ## Integrity rules enforced in the application
 

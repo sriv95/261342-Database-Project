@@ -26,7 +26,7 @@ Open http://localhost:8000.
 
 Next times, only `docker compose up -d` is needed. Stop with `docker compose down`.
 
-`migrate:fresh --seed` wipes the database and restores the demo data (24 products, 3 customers, sample orders and reviews). Run it again any time to reset.
+`migrate:fresh --seed` wipes the database and restores the demo data (181 products from 5 brands with photos, 3 customers, sample orders and reviews). Run it again any time to reset.
 
 After editing Blade views or CSS, run `npm run build` again (or `npm run dev` while working).
 
@@ -42,3 +42,7 @@ All passwords are `password`.
 | Customer | `customer3@shop.test` | `password` |
 
 Admins get an **Admin** button in the navbar (dashboard, products, orders, users, reviews). New sign-ups through the Register page are customers.
+
+## Catalog data
+
+Products live in `database/seeders/data/<brand>.php` (format in `data/README.md`), images in `public/images/products/<brand>/`. Each product records the page its photo came from in `image_source`. Prices and stock are estimates for demo use.

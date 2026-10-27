@@ -56,7 +56,8 @@ erDiagram
         bigint id PK
         bigint product_id FK
         varchar sku UK
-        varchar option_name
+        varchar color "nullable"
+        varchar option_name "nullable"
         decimal price
         int stock_qty
     }

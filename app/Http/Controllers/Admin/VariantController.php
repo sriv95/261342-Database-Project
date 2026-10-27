@@ -43,7 +43,8 @@ class VariantController extends Controller
     {
         return [
             'sku' => ['required', 'string', 'max:40', Rule::unique('product_variants', 'sku')->ignore($variant)],
-            'option_name' => ['required', 'string', 'max:60'],
+            'color' => ['nullable', 'string', 'max:40', 'required_without:option_name'],
+            'option_name' => ['nullable', 'string', 'max:60', 'required_without:color'],
             'price' => ['required', 'numeric', 'min:0', 'max:9999999'],
             'stock_qty' => ['required', 'integer', 'min:0'],
         ];
