@@ -1,10 +1,12 @@
 # ER Diagram
 
-Database: MySQL 8.4, schema `badminton_shop`. Crow's-foot notation.
+Database: MySQL 8.4, schema `badminton_shop`. Chen notation: rectangles are entities, diamonds are relationships, ellipses are attributes. Gold underlined = key, double border = weak entity, double line = total participation, `1` / `N` / `M` = cardinality.
 
 ![ER diagram](er-diagram.png)
 
-Files: [`er-diagram.png`](er-diagram.png), [`er-diagram.svg`](er-diagram.svg) (vector), [`er.mmd`](er.mmd) (Mermaid source, also below).
+Files: [`er-diagram.png`](er-diagram.png), [`er-diagram.svg`](er-diagram.svg) (vector). Regenerate with `python3 docs/src/er_chen.py`. The table-level view (columns, keys, foreign keys) is in [schema-design.md](schema-design.md). A crow's-foot version of the same model is kept in [`er.mmd`](er.mmd) (Mermaid) and at the bottom of this page.
+
+Conceptual notes: `PRODUCT_IMAGE` is a weak entity (it has no meaning without its product; `path` is its partial key). `IN_CART`, `ORDER_LINE`, `SAVES` and `REVIEWS` are many-to-many relationships whose attributes (`quantity`, `unit_price`, `rating`, `comment`) become the columns of `cart_items`, `order_items`, `wishlists` and `reviews`. `location` on `ADDRESS` is a composite attribute stored as `line1`, `district`, `province`, `postal_code`.
 
 ## Entities and relationships
 
@@ -16,7 +18,7 @@ Files: [`er-diagram.png`](er-diagram.png), [`er-diagram.svg`](er-diagram.svg) (v
 | addresses – orders | 1 : N | An order ships to one address. |
 | categories – products | 1 : N | A product belongs to one category. |
 | brands – products | 1 : N | A product belongs to one brand. |
-| products – product_variants | 1 : 1..N | A product has at least one variant (size, weight, grip). Price and stock live on the variant. |
+| products – product_variants | 1 : 1..N | A product has at least one variant (colour, size, weight, grip). Price and stock live on the variant. |
 | products – product_images | 1 : N | Several images, one marked primary. |
 | carts – cart_items – product_variants | M : N | A cart holds many variants, a variant sits in many carts. `cart_items` carries `quantity`. |
 | orders – order_items – product_variants | M : N | Same pattern. `order_items` carries `quantity` and `unit_price`. |
@@ -34,7 +36,7 @@ Files: [`er-diagram.png`](er-diagram.png), [`er-diagram.svg`](er-diagram.svg) (v
 - Audit columns `created_at` / `updated_at` exist on every table but `wishlists` (only `created_at`). They are left out of the diagram to keep it readable.
 - Laravel framework tables (`sessions`, `cache`, `jobs`, `password_reset_tokens`, `migrations`) are not part of the domain model and are omitted.
 
-## Mermaid source
+## Mermaid source (crow's-foot version)
 
 ```mermaid
 erDiagram
