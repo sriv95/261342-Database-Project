@@ -1,0 +1,219 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2330" height="1330" viewBox="0 0 2330 1330" font-family="Helvetica, Arial, sans-serif">
+<defs><pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#262626"/></pattern><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#9a85d0"/></marker></defs>
+<rect width="2330" height="1330" fill="#1b1b1b"/><rect width="2330" height="1330" fill="url(#g)"/>
+<text x="40" y="56" fill="#fff" font-size="30" font-weight="700">Smash Badminton Shop: relational mapping</text>
+<text x="40" y="80" fill="#9aa0a6" font-size="15">Relations derived from the ER diagram. Arrow = foreign key, from child (N) to parent (1).</text>
+<path d="M60,472.0 C30,472.0 30,138.0 60,138.0" fill="none" stroke="#9a85d0" stroke-width="1.8" marker-end="url(#ar)" opacity="0.9"/>
+<text x="46" y="466.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">N</text>
+<text x="46" y="132.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">1</text>
+<path d="M640,162.0 C520.0,162.0 520.0,138.0 400,138.0" fill="none" stroke="#9a85d0" stroke-width="1.8" marker-end="url(#ar)" opacity="0.9"/>
+<text x="626" y="156.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">1</text>
+<text x="414" y="132.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="start" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">1</text>
+<path d="M60,802.0 C14,802.0 14,138.0 60,138.0" fill="none" stroke="#9a85d0" stroke-width="1.8" marker-end="url(#ar)" opacity="0.9"/>
+<text x="46" y="796.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">N</text>
+<text x="46" y="132.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">1</text>
+<path d="M60,826.0 C-2,826.0 -2,448.0 60,448.0" fill="none" stroke="#9a85d0" stroke-width="1.8" marker-end="url(#ar)" opacity="0.9"/>
+<text x="46" y="820.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">N</text>
+<text x="46" y="442.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">1</text>
+<path d="M640,322.0 C610,322.0 610,138.0 640,138.0" fill="none" stroke="#9a85d0" stroke-width="1.8" marker-end="url(#ar)" opacity="0.9"/>
+<text x="626" y="316.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">N</text>
+<text x="626" y="132.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">1</text>
+<path d="M980,346.0 C1100.0,346.0 1100.0,138.0 1220,138.0" fill="none" stroke="#9a85d0" stroke-width="1.8" marker-end="url(#ar)" opacity="0.9"/>
+<text x="994" y="340.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="start" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">N</text>
+<text x="1206" y="132.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">1</text>
+<path d="M640,632.0 C520.0,632.0 520.0,778.0 400,778.0" fill="none" stroke="#9a85d0" stroke-width="1.8" marker-end="url(#ar)" opacity="0.9"/>
+<text x="626" y="626.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">N</text>
+<text x="414" y="772.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="start" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">1</text>
+<path d="M980,656.0 C1100.0,656.0 1100.0,138.0 1220,138.0" fill="none" stroke="#9a85d0" stroke-width="1.8" marker-end="url(#ar)" opacity="0.9"/>
+<text x="994" y="650.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="start" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">N</text>
+<text x="1206" y="132.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">1</text>
+<path d="M640,908.0 C520.0,908.0 520.0,138.0 400,138.0" fill="none" stroke="#9a85d0" stroke-width="1.8" marker-end="url(#ar)" opacity="0.9"/>
+<text x="626" y="902.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">N</text>
+<text x="414" y="132.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="start" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">1</text>
+<path d="M980,932.0 C1100.0,932.0 1100.0,528.0 1220,528.0" fill="none" stroke="#9a85d0" stroke-width="1.8" marker-end="url(#ar)" opacity="0.9"/>
+<text x="994" y="926.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="start" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">N</text>
+<text x="1206" y="522.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">1</text>
+<path d="M640,1112.0 C520.0,1112.0 520.0,138.0 400,138.0" fill="none" stroke="#9a85d0" stroke-width="1.8" marker-end="url(#ar)" opacity="0.9"/>
+<text x="626" y="1106.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">N</text>
+<text x="414" y="132.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="start" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">1</text>
+<path d="M980,1136.0 C1100.0,1136.0 1100.0,528.0 1220,528.0" fill="none" stroke="#9a85d0" stroke-width="1.8" marker-end="url(#ar)" opacity="0.9"/>
+<text x="994" y="1130.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="start" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">N</text>
+<text x="1206" y="522.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">1</text>
+<path d="M1220,162.0 C1190,162.0 1190,528.0 1220,528.0" fill="none" stroke="#9a85d0" stroke-width="1.8" marker-end="url(#ar)" opacity="0.9"/>
+<text x="1206" y="156.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">N</text>
+<text x="1206" y="522.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">1</text>
+<path d="M1220,872.0 C1174,872.0 1174,528.0 1220,528.0" fill="none" stroke="#9a85d0" stroke-width="1.8" marker-end="url(#ar)" opacity="0.9"/>
+<text x="1206" y="866.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">N</text>
+<text x="1206" y="522.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">1</text>
+<path d="M1560,552.0 C1680.0,552.0 1680.0,528.0 1800,528.0" fill="none" stroke="#9a85d0" stroke-width="1.8" marker-end="url(#ar)" opacity="0.9"/>
+<text x="1574" y="546.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="start" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">N</text>
+<text x="1786" y="522.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">1</text>
+<path d="M1560,576.0 C1680.0,576.0 1680.0,728.0 1800,728.0" fill="none" stroke="#9a85d0" stroke-width="1.8" marker-end="url(#ar)" opacity="0.9"/>
+<text x="1574" y="570.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="start" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">N</text>
+<text x="1786" y="722.0" fill="#f2c14e" font-size="14" font-weight="700" text-anchor="end" paint-order="stroke" stroke="#1b1b1b" stroke-width="4">1</text>
+<rect x="60" y="90" width="340" height="236" rx="6" fill="#202428" stroke="#4a7ab8" stroke-width="2"/>
+<path d="M60,126 V96 Q60,90 66,90 H394 Q400,90 400,96 V126z" fill="#1f2d4a"/>
+<text x="74" y="114" fill="#fff" font-size="17" font-weight="700">users</text>
+<text x="74" y="143" fill="#f2c14e" font-size="14" font-weight="700" text-decoration="underline">#id</text>
+<rect x="61" y="150" width="338" height="24" fill="#ffffff08"/>
+<text x="74" y="167" fill="#e8e8e8" font-size="14" font-weight="400">name</text>
+<text x="74" y="191" fill="#e8e8e8" font-size="14" font-weight="400">email</text>
+<text x="388" y="191" fill="#e8e8e8" font-size="12" font-weight="700" text-anchor="end">UK</text>
+<rect x="61" y="198" width="338" height="24" fill="#ffffff08"/>
+<text x="74" y="215" fill="#e8e8e8" font-size="14" font-weight="400">email_verified_at?</text>
+<text x="74" y="239" fill="#e8e8e8" font-size="14" font-weight="400">password</text>
+<rect x="61" y="246" width="338" height="24" fill="#ffffff08"/>
+<text x="74" y="263" fill="#e8e8e8" font-size="14" font-weight="400">phone?</text>
+<text x="74" y="287" fill="#e8e8e8" font-size="14" font-weight="400">role</text>
+<rect x="61" y="294" width="338" height="24" fill="#ffffff08"/>
+<text x="74" y="311" fill="#e8e8e8" font-size="14" font-weight="400">remember_token?</text>
+<rect x="60" y="400" width="340" height="260" rx="6" fill="#202428" stroke="#4a7ab8" stroke-width="2"/>
+<path d="M60,436 V406 Q60,400 66,400 H394 Q400,400 400,406 V436z" fill="#1f2d4a"/>
+<text x="74" y="424" fill="#fff" font-size="17" font-weight="700">addresses</text>
+<text x="74" y="453" fill="#f2c14e" font-size="14" font-weight="700" text-decoration="underline">#id</text>
+<rect x="61" y="460" width="338" height="24" fill="#ffffff08"/>
+<text x="74" y="477" fill="#c8b6ff" font-size="14" font-weight="400">user_id</text>
+<text x="388" y="477" fill="#c8b6ff" font-size="12" font-weight="700" text-anchor="end">FK</text>
+<text x="74" y="501" fill="#e8e8e8" font-size="14" font-weight="400">recipient</text>
+<rect x="61" y="508" width="338" height="24" fill="#ffffff08"/>
+<text x="74" y="525" fill="#e8e8e8" font-size="14" font-weight="400">line1</text>
+<text x="74" y="549" fill="#e8e8e8" font-size="14" font-weight="400">district</text>
+<rect x="61" y="556" width="338" height="24" fill="#ffffff08"/>
+<text x="74" y="573" fill="#e8e8e8" font-size="14" font-weight="400">province</text>
+<text x="74" y="597" fill="#e8e8e8" font-size="14" font-weight="400">postal_code</text>
+<rect x="61" y="604" width="338" height="24" fill="#ffffff08"/>
+<text x="74" y="621" fill="#e8e8e8" font-size="14" font-weight="400">is_default</text>
+<text x="74" y="645" fill="#e8e8e8" font-size="14" font-weight="400">deleted_at?</text>
+<rect x="60" y="730" width="340" height="188" rx="6" fill="#202428" stroke="#4a7ab8" stroke-width="2"/>
+<path d="M60,766 V736 Q60,730 66,730 H394 Q400,730 400,736 V766z" fill="#1f2d4a"/>
+<text x="74" y="754" fill="#fff" font-size="17" font-weight="700">orders</text>
+<text x="74" y="783" fill="#f2c14e" font-size="14" font-weight="700" text-decoration="underline">#id</text>
+<rect x="61" y="790" width="338" height="24" fill="#ffffff08"/>
+<text x="74" y="807" fill="#c8b6ff" font-size="14" font-weight="400">user_id</text>
+<text x="388" y="807" fill="#c8b6ff" font-size="12" font-weight="700" text-anchor="end">FK</text>
+<text x="74" y="831" fill="#c8b6ff" font-size="14" font-weight="400">address_id</text>
+<text x="388" y="831" fill="#c8b6ff" font-size="12" font-weight="700" text-anchor="end">FK</text>
+<rect x="61" y="838" width="338" height="24" fill="#ffffff08"/>
+<text x="74" y="855" fill="#e8e8e8" font-size="14" font-weight="400">total</text>
+<text x="74" y="879" fill="#e8e8e8" font-size="14" font-weight="400">status</text>
+<rect x="61" y="886" width="338" height="24" fill="#ffffff08"/>
+<text x="74" y="903" fill="#e8e8e8" font-size="14" font-weight="400">placed_at</text>
+<rect x="640" y="90" width="340" height="92" rx="6" fill="#202428" stroke="#e08a3c" stroke-width="2"/>
+<path d="M640,126 V96 Q640,90 646,90 H974 Q980,90 980,96 V126z" fill="#4a2f14"/>
+<text x="654" y="114" fill="#fff" font-size="17" font-weight="700">carts</text>
+<text x="654" y="143" fill="#f2c14e" font-size="14" font-weight="700" text-decoration="underline">#id</text>
+<rect x="641" y="150" width="338" height="24" fill="#ffffff08"/>
+<text x="654" y="167" fill="#c8b6ff" font-size="14" font-weight="400">user_id</text>
+<text x="968" y="167" fill="#c8b6ff" font-size="12" font-weight="700" text-anchor="end">FK UK</text>
+<rect x="640" y="250" width="340" height="154" rx="6" fill="#202428" stroke="#e08a3c" stroke-width="2"/>
+<path d="M640,286 V256 Q640,250 646,250 H974 Q980,250 980,256 V286z" fill="#4a2f14"/>
+<text x="654" y="274" fill="#fff" font-size="17" font-weight="700">cart_items</text>
+<text x="654" y="303" fill="#f2c14e" font-size="14" font-weight="700" text-decoration="underline">#id</text>
+<rect x="641" y="310" width="338" height="24" fill="#ffffff08"/>
+<text x="654" y="327" fill="#c8b6ff" font-size="14" font-weight="400">cart_id</text>
+<text x="968" y="327" fill="#c8b6ff" font-size="12" font-weight="700" text-anchor="end">FK</text>
+<text x="654" y="351" fill="#c8b6ff" font-size="14" font-weight="400">variant_id</text>
+<text x="968" y="351" fill="#c8b6ff" font-size="12" font-weight="700" text-anchor="end">FK</text>
+<rect x="641" y="358" width="338" height="24" fill="#ffffff08"/>
+<text x="654" y="375" fill="#e8e8e8" font-size="14" font-weight="400">quantity</text>
+<text x="654" y="396" fill="#8fd18f" font-size="12">UK (cart_id, variant_id)</text>
+<rect x="640" y="560" width="340" height="164" rx="6" fill="#202428" stroke="#e08a3c" stroke-width="2"/>
+<path d="M640,596 V566 Q640,560 646,560 H974 Q980,560 980,566 V596z" fill="#4a2f14"/>
+<text x="654" y="584" fill="#fff" font-size="17" font-weight="700">order_items</text>
+<text x="654" y="613" fill="#f2c14e" font-size="14" font-weight="700" text-decoration="underline">#id</text>
+<rect x="641" y="620" width="338" height="24" fill="#ffffff08"/>
+<text x="654" y="637" fill="#c8b6ff" font-size="14" font-weight="400">order_id</text>
+<text x="968" y="637" fill="#c8b6ff" font-size="12" font-weight="700" text-anchor="end">FK</text>
+<text x="654" y="661" fill="#c8b6ff" font-size="14" font-weight="400">variant_id</text>
+<text x="968" y="661" fill="#c8b6ff" font-size="12" font-weight="700" text-anchor="end">FK</text>
+<rect x="641" y="668" width="338" height="24" fill="#ffffff08"/>
+<text x="654" y="685" fill="#e8e8e8" font-size="14" font-weight="400">quantity</text>
+<text x="654" y="709" fill="#e8e8e8" font-size="14" font-weight="400">unit_price</text>
+<rect x="640" y="860" width="340" height="130" rx="6" fill="#202428" stroke="#e08a3c" stroke-width="2"/>
+<path d="M640,896 V866 Q640,860 646,860 H974 Q980,860 980,866 V896z" fill="#4a2f14"/>
+<text x="654" y="884" fill="#fff" font-size="17" font-weight="700">wishlists</text>
+<text x="654" y="913" fill="#f2c14e" font-size="14" font-weight="700" text-decoration="underline">#user_id</text>
+<text x="968" y="913" fill="#f2c14e" font-size="12" font-weight="700" text-anchor="end">FK</text>
+<rect x="641" y="920" width="338" height="24" fill="#ffffff08"/>
+<text x="654" y="937" fill="#f2c14e" font-size="14" font-weight="700" text-decoration="underline">#product_id</text>
+<text x="968" y="937" fill="#f2c14e" font-size="12" font-weight="700" text-anchor="end">FK</text>
+<text x="654" y="961" fill="#e8e8e8" font-size="14" font-weight="400">created_at</text>
+<text x="654" y="982" fill="#8fd18f" font-size="12">PK (user_id, product_id)</text>
+<rect x="640" y="1040" width="340" height="178" rx="6" fill="#202428" stroke="#e08a3c" stroke-width="2"/>
+<path d="M640,1076 V1046 Q640,1040 646,1040 H974 Q980,1040 980,1046 V1076z" fill="#4a2f14"/>
+<text x="654" y="1064" fill="#fff" font-size="17" font-weight="700">reviews</text>
+<text x="654" y="1093" fill="#f2c14e" font-size="14" font-weight="700" text-decoration="underline">#id</text>
+<rect x="641" y="1100" width="338" height="24" fill="#ffffff08"/>
+<text x="654" y="1117" fill="#c8b6ff" font-size="14" font-weight="400">user_id</text>
+<text x="968" y="1117" fill="#c8b6ff" font-size="12" font-weight="700" text-anchor="end">FK</text>
+<text x="654" y="1141" fill="#c8b6ff" font-size="14" font-weight="400">product_id</text>
+<text x="968" y="1141" fill="#c8b6ff" font-size="12" font-weight="700" text-anchor="end">FK</text>
+<rect x="641" y="1148" width="338" height="24" fill="#ffffff08"/>
+<text x="654" y="1165" fill="#e8e8e8" font-size="14" font-weight="400">rating</text>
+<text x="654" y="1189" fill="#e8e8e8" font-size="14" font-weight="400">comment?</text>
+<text x="654" y="1210" fill="#8fd18f" font-size="12">UK (user_id, product_id)</text>
+<rect x="1220" y="90" width="340" height="212" rx="6" fill="#202428" stroke="#4a7ab8" stroke-width="2"/>
+<path d="M1220,126 V96 Q1220,90 1226,90 H1554 Q1560,90 1560,96 V126z" fill="#1f2d4a"/>
+<text x="1234" y="114" fill="#fff" font-size="17" font-weight="700">product_variants</text>
+<text x="1234" y="143" fill="#f2c14e" font-size="14" font-weight="700" text-decoration="underline">#id</text>
+<rect x="1221" y="150" width="338" height="24" fill="#ffffff08"/>
+<text x="1234" y="167" fill="#c8b6ff" font-size="14" font-weight="400">product_id</text>
+<text x="1548" y="167" fill="#c8b6ff" font-size="12" font-weight="700" text-anchor="end">FK</text>
+<text x="1234" y="191" fill="#e8e8e8" font-size="14" font-weight="400">sku</text>
+<text x="1548" y="191" fill="#e8e8e8" font-size="12" font-weight="700" text-anchor="end">UK</text>
+<rect x="1221" y="198" width="338" height="24" fill="#ffffff08"/>
+<text x="1234" y="215" fill="#e8e8e8" font-size="14" font-weight="400">color?</text>
+<text x="1234" y="239" fill="#e8e8e8" font-size="14" font-weight="400">option_name?</text>
+<rect x="1221" y="246" width="338" height="24" fill="#ffffff08"/>
+<text x="1234" y="263" fill="#e8e8e8" font-size="14" font-weight="400">price</text>
+<text x="1234" y="287" fill="#e8e8e8" font-size="14" font-weight="400">stock_qty</text>
+<rect x="1220" y="480" width="340" height="188" rx="6" fill="#202428" stroke="#4a7ab8" stroke-width="2"/>
+<path d="M1220,516 V486 Q1220,480 1226,480 H1554 Q1560,480 1560,486 V516z" fill="#1f2d4a"/>
+<text x="1234" y="504" fill="#fff" font-size="17" font-weight="700">products</text>
+<text x="1234" y="533" fill="#f2c14e" font-size="14" font-weight="700" text-decoration="underline">#id</text>
+<rect x="1221" y="540" width="338" height="24" fill="#ffffff08"/>
+<text x="1234" y="557" fill="#c8b6ff" font-size="14" font-weight="400">category_id</text>
+<text x="1548" y="557" fill="#c8b6ff" font-size="12" font-weight="700" text-anchor="end">FK</text>
+<text x="1234" y="581" fill="#c8b6ff" font-size="14" font-weight="400">brand_id</text>
+<text x="1548" y="581" fill="#c8b6ff" font-size="12" font-weight="700" text-anchor="end">FK</text>
+<rect x="1221" y="588" width="338" height="24" fill="#ffffff08"/>
+<text x="1234" y="605" fill="#e8e8e8" font-size="14" font-weight="400">name</text>
+<text x="1234" y="629" fill="#e8e8e8" font-size="14" font-weight="400">description?</text>
+<rect x="1221" y="636" width="338" height="24" fill="#ffffff08"/>
+<text x="1234" y="653" fill="#e8e8e8" font-size="14" font-weight="400">is_active</text>
+<rect x="1220" y="800" width="340" height="140" rx="6" fill="#202428" stroke="#4a7ab8" stroke-width="2"/>
+<path d="M1220,836 V806 Q1220,800 1226,800 H1554 Q1560,800 1560,806 V836z" fill="#1f2d4a"/>
+<text x="1234" y="824" fill="#fff" font-size="17" font-weight="700">product_images</text>
+<text x="1234" y="853" fill="#f2c14e" font-size="14" font-weight="700" text-decoration="underline">#id</text>
+<rect x="1221" y="860" width="338" height="24" fill="#ffffff08"/>
+<text x="1234" y="877" fill="#c8b6ff" font-size="14" font-weight="400">product_id</text>
+<text x="1548" y="877" fill="#c8b6ff" font-size="12" font-weight="700" text-anchor="end">FK</text>
+<text x="1234" y="901" fill="#e8e8e8" font-size="14" font-weight="400">path</text>
+<rect x="1221" y="908" width="338" height="24" fill="#ffffff08"/>
+<text x="1234" y="925" fill="#e8e8e8" font-size="14" font-weight="400">is_primary</text>
+<rect x="1800" y="480" width="340" height="116" rx="6" fill="#202428" stroke="#4a7ab8" stroke-width="2"/>
+<path d="M1800,516 V486 Q1800,480 1806,480 H2134 Q2140,480 2140,486 V516z" fill="#1f2d4a"/>
+<text x="1814" y="504" fill="#fff" font-size="17" font-weight="700">categories</text>
+<text x="1814" y="533" fill="#f2c14e" font-size="14" font-weight="700" text-decoration="underline">#id</text>
+<rect x="1801" y="540" width="338" height="24" fill="#ffffff08"/>
+<text x="1814" y="557" fill="#e8e8e8" font-size="14" font-weight="400">name</text>
+<text x="1814" y="581" fill="#e8e8e8" font-size="14" font-weight="400">slug</text>
+<text x="2128" y="581" fill="#e8e8e8" font-size="12" font-weight="700" text-anchor="end">UK</text>
+<rect x="1800" y="680" width="340" height="92" rx="6" fill="#202428" stroke="#4a7ab8" stroke-width="2"/>
+<path d="M1800,716 V686 Q1800,680 1806,680 H2134 Q2140,680 2140,686 V716z" fill="#1f2d4a"/>
+<text x="1814" y="704" fill="#fff" font-size="17" font-weight="700">brands</text>
+<text x="1814" y="733" fill="#f2c14e" font-size="14" font-weight="700" text-decoration="underline">#id</text>
+<rect x="1801" y="740" width="338" height="24" fill="#ffffff08"/>
+<text x="1814" y="757" fill="#e8e8e8" font-size="14" font-weight="400">name</text>
+<text x="2128" y="757" fill="#e8e8e8" font-size="12" font-weight="700" text-anchor="end">UK</text>
+<rect x="1780" y="920" width="500" height="370" rx="10" fill="#202020" stroke="#555"/>
+<text x="1802" y="956" fill="#fff" font-size="19" font-weight="700">Legend</text>
+<circle cx="1810" cy="992" r="7" fill="#4a7ab8"/><text x="1830" y="997" fill="#ddd" font-size="14">Blue border: strong entity, own relation</text>
+<circle cx="1810" cy="1030" r="7" fill="#e08a3c"/><text x="1830" y="1035" fill="#ddd" font-size="14">Orange border: from M:N / 1:1 rule (junction relation)</text>
+<circle cx="1810" cy="1068" r="7" fill="#f2c14e"/><text x="1830" y="1073" fill="#ddd" font-size="14">#col  primary key (underlined)</text>
+<circle cx="1810" cy="1106" r="7" fill="#c8b6ff"/><text x="1830" y="1111" fill="#ddd" font-size="14">FK  foreign key</text>
+<circle cx="1810" cy="1144" r="7" fill="#e8e8e8"/><text x="1830" y="1149" fill="#ddd" font-size="14">UK  unique</text>
+<circle cx="1810" cy="1182" r="7" fill="#7d838a"/><text x="1830" y="1187" fill="#ddd" font-size="14">col?  nullable column</text>
+<circle cx="1810" cy="1220" r="7" fill="#8fd18f"/><text x="1830" y="1225" fill="#ddd" font-size="14">Composite key / unique constraint</text>
+<text x="1802" y="1270" fill="#9aa0a6" font-size="12">1 / N = cardinality at each end. created_at, updated_at omitted.</text>
+</svg>

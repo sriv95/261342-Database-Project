@@ -2,6 +2,10 @@
 
 Mapping of the [ER diagram](er-diagram.md) to relations. Notation: `#` prefix = primary key, `→` = foreign key, `UK` = unique, trailing `?` = nullable.
 
+![Relational mapping](relational-mapping.png)
+
+Vector: [`relational-mapping.svg`](relational-mapping.svg). Regenerate with `python3 docs/src/relation_mapping.py`.
+
 ## Mapping rules applied
 
 | ER construct | Rule | Where used |
