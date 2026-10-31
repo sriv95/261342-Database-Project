@@ -91,7 +91,16 @@ class DatabaseSeeder extends Seeder
         $products = Product::with('variants')->get();
 
         foreach ($customers as $customer) {
-            $customer->cart()->create();
+            $cart = $customer->cart()->create();
+            foreach ($products->random(3) as $product) {
+                $variant = $product->variants->firstWhere('stock_qty', '>', 1);
+                if ($variant) {
+                    $cart->items()->create([
+                        'variant_id' => $variant->id,
+                        'quantity' => fake()->numberBetween(1, 2),
+                    ]);
+                }
+            }
             $customer->wishlistProducts()->attach($products->random(3)->pluck('id'));
 
             foreach (range(1, 2) as $_) {
