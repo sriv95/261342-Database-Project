@@ -33,6 +33,10 @@ class CartController extends Controller
         $wanted = ($item->quantity ?? 0) + $data['quantity'];
 
         if ($variant->stock_qty < 1) {
+            if ($request->expectsJson()) {
+                return response()->json(['message' => 'That option is out of stock.'], 422);
+            }
+
             return back()->withErrors(['stock' => 'That option is out of stock.']);
         }
 
@@ -42,6 +46,13 @@ class CartController extends Controller
         $message = $wanted > $variant->stock_qty
             ? "Only {$variant->stock_qty} in stock; cart updated to the maximum."
             : 'Added to cart.';
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'message' => $message,
+                'cartCount' => (int) $cart->items()->sum('quantity'),
+            ]);
+        }
 
         return back()->with('status', $message);
     }

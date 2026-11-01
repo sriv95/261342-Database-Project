@@ -25,6 +25,12 @@ class WishlistController extends Controller
     {
         $result = $request->user()->wishlistProducts()->toggle($product->id);
 
-        return back()->with('status', $result['attached'] ? 'Added to wish list.' : 'Removed from wish list.');
+        $message = $result['attached'] ? 'Added to wish list.' : 'Removed from wish list.';
+
+        if ($request->expectsJson()) {
+            return response()->json(['wished' => (bool) $result['attached'], 'message' => $message]);
+        }
+
+        return back()->with('status', $message);
     }
 }

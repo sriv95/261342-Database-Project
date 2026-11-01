@@ -13,7 +13,7 @@
         </div>
     @else
         @php $wishedIds = $products->pluck('id')->all(); @endphp
-        <div data-stagger class="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">
+        <div data-stagger data-wish-page class="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">
             @foreach ($products as $product)
                 @include('partials.product-card', ['showWish' => true, 'wishedIds' => $wishedIds])
             @endforeach

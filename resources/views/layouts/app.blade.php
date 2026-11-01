@@ -31,7 +31,7 @@
                     @endif
                     <a href="{{ route('wishlist.index') }}" class="font-medium hover:underline hover:underline-offset-4">Wish list</a>
                     <a href="{{ route('orders.index') }}" class="font-medium hover:underline hover:underline-offset-4">Orders</a>
-                    <a href="{{ route('cart.index') }}" class="font-medium hover:underline hover:underline-offset-4">Cart @if ($cartCount)<span data-cart-count="{{ $cartCount }}" class="ml-1 inline-block min-w-5 rounded-full bg-shuttle px-1.5 text-center text-xs font-semibold leading-5 text-gray-900">{{ $cartCount }}</span>@endif</a>
+                    <a href="{{ route('cart.index') }}" data-cart-link class="font-medium hover:underline hover:underline-offset-4">Cart @if ($cartCount)<span data-cart-count="{{ $cartCount }}" class="ml-1 inline-block min-w-5 rounded-full bg-shuttle px-1.5 text-center text-xs font-semibold leading-5 text-gray-900">{{ $cartCount }}</span>@endif</a>
                     <a href="{{ route('account.show') }}" class="text-line/75 hover:text-line hover:underline hover:underline-offset-4" title="My account">{{ auth()->user()->name }}</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

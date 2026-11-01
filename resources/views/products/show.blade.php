@@ -19,9 +19,9 @@
             <div class="flex items-start justify-between gap-4">
                 <h1 class="display text-4xl sm:text-5xl">{{ $product->name }}</h1>
                 @auth
-                    <form method="POST" action="{{ route('wishlist.toggle', $product) }}" class="mt-1">
+                    <form method="POST" action="{{ route('wishlist.toggle', $product) }}" class="mt-1" data-ajax="wish" data-wished="{{ $wished ? 1 : 0 }}">
                         @csrf
-                        <button class="btn btn-line whitespace-nowrap !px-4 !py-1.5 text-sm hover:!border-red-400 hover:!text-red-700">{{ $wished ? '♥ Saved' : '♡ Wish list' }}</button>
+                        <button data-wish-label class="btn btn-line whitespace-nowrap !px-4 !py-1.5 text-sm hover:!border-red-400 hover:!text-red-700">{{ $wished ? '♥ Saved' : '♡ Wish list' }}</button>
                     </form>
                 @endauth
             </div>
@@ -64,7 +64,7 @@
                         <span id="pick-price" class="price text-4xl"></span>
                         <span id="pick-stock" class="text-sm font-medium"></span>
                     </div>
-                    <form id="pick-form" method="POST" action="{{ route('cart.store') }}" class="mt-4 flex items-center gap-3">
+                    <form id="pick-form" method="POST" action="{{ route('cart.store') }}" class="mt-4 flex items-center gap-3" data-ajax="cart">
                         @csrf
                         <input type="hidden" name="variant_id" id="pick-id">
                         @auth
