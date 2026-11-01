@@ -13,6 +13,15 @@
         </div>
     </section>
 
+    <section class="mt-10">
+        <h2 class="mb-4 text-xl font-semibold">New arrivals</h2>
+        <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+            @foreach ($featured as $product)
+                @include('partials.product-card')
+            @endforeach
+        </div>
+    </section>
+
     @foreach ($categories as $category)
         @if ($trending[$category->id]->isNotEmpty())
             <section class="mt-10">
@@ -28,13 +37,4 @@
             </section>
         @endif
     @endforeach
-
-    <section class="mt-10">
-        <h2 class="mb-4 text-xl font-semibold">New arrivals</h2>
-        <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
-            @foreach ($featured as $product)
-                @include('partials.product-card')
-            @endforeach
-        </div>
-    </section>
 @endsection
