@@ -43,7 +43,7 @@ class CartController extends Controller
             ? "Only {$variant->stock_qty} in stock; cart updated to the maximum."
             : 'Added to cart.';
 
-        return redirect()->route('cart.index')->with('status', $message);
+        return back()->with('status', $message);
     }
 
     public function update(Request $request, CartItem $item)
