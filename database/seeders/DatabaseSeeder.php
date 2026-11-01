@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->seedUsers();
         $this->seedCatalog();
         $this->seedActivity();
+        $this->call(SalesHistorySeeder::class);
     }
 
     private function seedUsers(): void

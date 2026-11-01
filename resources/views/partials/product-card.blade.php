@@ -10,6 +10,9 @@
                     <span class="text-amber-500">★ {{ number_format($product->reviews_avg_rating, 1) }} <span class="text-gray-400">({{ $product->reviews_count }})</span></span>
                 @endif
             </div>
+            @isset($product->sold_monthly)
+                <p class="mt-1 text-xs font-medium text-orange-600">🔥 {{ number_format($product->sold_monthly) }} sold / month</p>
+            @endisset
         </div>
     </a>
 
