@@ -28,6 +28,11 @@ class DashboardController extends Controller
             ->selectRaw("DATE_FORMAT(placed_at, '%Y-%m') AS month, COUNT(*) AS orders, SUM(total) AS revenue")
             ->groupBy('month')->orderBy('month')->get();
 
+        $dailyChart = collect(range(29, 0))->map(fn ($n) => now()->subDays($n)->startOfDay())
+            ->map(fn ($d) => ['label' => $d->format('j M'), 'value' => (float) ($daily->firstWhere('day', $d->toDateString())->revenue ?? 0)]);
+        $monthlyChart = collect(range(11, 0))->map(fn ($n) => now()->startOfMonth()->subMonths($n))
+            ->map(fn ($d) => ['label' => $d->format('M Y'), 'value' => (float) ($monthly->firstWhere('month', $d->format('Y-m'))->revenue ?? 0)]);
+
         $lines = fn () => DB::table('order_items')
             ->join('orders', 'orders.id', '=', 'order_items.order_id')
             ->join('product_variants', 'product_variants.id', '=', 'order_items.variant_id')
@@ -42,6 +47,8 @@ class DashboardController extends Controller
             'pending' => DB::table('orders')->where('status', 'pending')->count(),
             'daily' => $daily,
             'monthly' => $monthly,
+            'dailyChart' => $dailyChart,
+            'monthlyChart' => $monthlyChart,
             'topProducts' => $lines()->selectRaw("products.id, products.name, $units")
                 ->groupBy('products.id', 'products.name')->orderByDesc('units')->limit(5)->get(),
             'byCategory' => $lines()->join('categories', 'categories.id', '=', 'products.category_id')
