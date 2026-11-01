@@ -61,3 +61,56 @@ function boot() {
 }
 
 boot();
+
+// Carousel: native scroll-snap track with arrows and page dots.
+document.querySelectorAll('[data-carousel]').forEach((root) => {
+    const track = root.querySelector('[data-track]');
+    const prev = root.querySelector('[data-prev]');
+    const next = root.querySelector('[data-next]');
+    const dotsBox = root.querySelector('[data-dots]');
+    const behavior = reduced ? 'auto' : 'smooth';
+    let dots = [];
+
+    const pages = () => Math.max(1, Math.round(track.scrollWidth / track.clientWidth));
+    const current = () => Math.round(track.scrollLeft / track.clientWidth);
+    const go = (i) => track.scrollTo({ left: i * track.clientWidth, behavior });
+
+    const buildDots = () => {
+        dotsBox.textContent = '';
+        dots = Array.from({ length: pages() }, (_, i) => {
+            const b = document.createElement('button');
+            b.type = 'button';
+            b.setAttribute('aria-label', `Page ${i + 1}`);
+            b.className = 'h-2.5 rounded-full bg-line transition-all duration-300';
+            b.addEventListener('click', () => go(i));
+            dotsBox.append(b);
+            return b;
+        });
+        dotsBox.hidden = dots.length < 2;
+    };
+
+    const sync = () => {
+        const i = current();
+        dots.forEach((d, n) => {
+            d.style.width = n === i ? '1.5rem' : '0.625rem';
+            d.style.opacity = n === i ? '1' : '0.4';
+            n === i ? d.setAttribute('aria-current', 'true') : d.removeAttribute('aria-current');
+        });
+        prev.disabled = i <= 0;
+        next.disabled = i >= pages() - 1;
+    };
+
+    prev.addEventListener('click', () => go(Math.max(0, current() - 1)));
+    next.addEventListener('click', () => go(Math.min(pages() - 1, current() + 1)));
+    track.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') { e.preventDefault(); next.click(); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); prev.click(); }
+    });
+
+    let frame;
+    track.addEventListener('scroll', () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(sync); }, { passive: true });
+    window.addEventListener('resize', () => { buildDots(); sync(); });
+
+    buildDots();
+    sync();
+});

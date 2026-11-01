@@ -21,7 +21,7 @@ class HomeController extends Controller
             ->withAvg('reviews', 'rating')
             ->withCount('reviews')
             ->latest()
-            ->take(8)
+            ->take(12)
             ->get();
 
         $categories = Category::withCount('products')->get();
