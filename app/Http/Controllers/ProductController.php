@@ -45,6 +45,7 @@ class ProductController extends Controller
             'categories' => Category::all(),
             'brands' => Brand::all(),
             'filters' => $filters,
+            'wishedIds' => $request->user()?->wishlistProducts()->pluck('products.id')->all() ?? [],
         ]);
     }
 

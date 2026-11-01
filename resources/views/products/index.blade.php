@@ -32,7 +32,7 @@
     @else
         <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
             @foreach ($products as $product)
-                @include('partials.product-card')
+                @include('partials.product-card', ['showWish' => true])
             @endforeach
         </div>
         <div class="mt-6">{{ $products->links() }}</div>
