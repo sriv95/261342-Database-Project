@@ -7,7 +7,7 @@
             <p class="text-sm {{ ! empty($dark) ? 'text-line/70' : 'text-gray-500' }}">{{ $product->brand->name ?? '' }}</p>
             <h3 class="font-medium leading-snug group-hover:underline group-hover:underline-offset-4">{{ $product->name }}</h3>
             <div class="mt-1 flex items-baseline justify-between gap-2">
-                <span class="price text-lg">from ฿{{ number_format($product->variants_min_price) }}</span>
+                <span class="price rounded-full px-3 py-0.5 text-lg {{ ! empty($dark) ? 'bg-line text-floor' : 'bg-emerald-100 text-emerald-800' }}">฿{{ number_format($product->variants_min_price) }}</span>
                 @if ($product->reviews_count)
                     <span class="whitespace-nowrap text-sm {{ ! empty($dark) ? 'text-line/80' : 'text-gray-500' }}"><span class="text-amber-500" aria-hidden="true">★</span> {{ number_format($product->reviews_avg_rating, 1) }} <span class="{{ ! empty($dark) ? 'text-line/60' : 'text-gray-400' }}">({{ $product->reviews_count }})</span></span>
                 @endif
