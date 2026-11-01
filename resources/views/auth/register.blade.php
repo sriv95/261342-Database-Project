@@ -7,7 +7,6 @@
         <div class="on-floor relative hidden bg-floor p-8 text-line md:col-span-2 md:block">
             @include('partials.court-lines', ['class' => 'pointer-events-none absolute inset-0 h-full w-full text-line'])
             <p class="display relative text-3xl font-bold">Join the club.</p>
-            <p class="relative mt-3 text-line/85">Save gear to your wish list, review what you bought and reorder in a few clicks.</p>
         </div>
         <div class="p-8 md:col-span-3">
             <h1 class="display text-3xl">Create account</h1>
