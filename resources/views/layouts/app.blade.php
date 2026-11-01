@@ -13,7 +13,7 @@
     <header class="on-floor bg-floor text-line">
         <nav class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-3 px-4 py-3">
             <a href="{{ route('home') }}" class="display flex items-center gap-2 text-xl font-bold">
-                @include('partials.shuttle', ['class' => 'h-7 w-7 text-line'])
+                @include('partials.shuttle', ['class' => 'h-8 w-8 text-line'])
                 {{ config('app.name') }}
             </a>
             <a href="{{ route('products.index') }}" class="text-[0.9375rem] font-medium hover:underline hover:underline-offset-4">Products</a>
