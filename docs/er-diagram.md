@@ -2,9 +2,9 @@
 
 Database: MySQL 8.4, schema `badminton_shop`. Chen notation: rectangles are entities, diamonds are relationships, ellipses are attributes. Gold underlined = key, double border = weak entity, double line = total participation, `1` / `N` / `M` = cardinality.
 
-![ER diagram](er-diagram.png)
+![ER diagram](images/ERdiagram.jpg)
 
-Files: [`er-diagram.png`](er-diagram.png), [`er-diagram.svg`](er-diagram.svg) (vector). Regenerate with `python3 docs/src/er_chen.py`. The table-level view (columns, keys, foreign keys) is in [schema-design.md](schema-design.md). A crow's-foot version of the same model is kept in [`er.mmd`](er.mmd) (Mermaid) and at the bottom of this page.
+Image: [`images/ERdiagram.jpg`](images/ERdiagram.jpg). The table-level view (columns, keys, foreign keys) is in [schema-design.md](schema-design.md). A crow's-foot version of the same model is kept in [`er.mmd`](er.mmd) (Mermaid) and at the bottom of this page.
 
 Conceptual notes: `PRODUCT_IMAGE` is a weak entity (it has no meaning without its product; `path` is its partial key). `IN_CART`, `ORDER_LINE`, `SAVES` and `REVIEWS` are many-to-many relationships whose attributes (`quantity`, `unit_price`, `rating`, `comment`) become the columns of `cart_items`, `order_items`, `wishlists` and `reviews`. `location` on `ADDRESS` is a composite attribute stored as `line1`, `district`, `province`, `postal_code`.
 
