@@ -24,6 +24,7 @@ class CartController extends Controller
         $data = $request->validate([
             'variant_id' => ['required', 'exists:product_variants,id'],
             'quantity' => ['required', 'integer', 'min:1', 'max:20'],
+            'move_wishlist' => ['sometimes', 'boolean'],
         ]);
 
         $variant = ProductVariant::findOrFail($data['variant_id']);
@@ -42,6 +43,11 @@ class CartController extends Controller
 
         $item->quantity = min($wanted, $variant->stock_qty);
         $item->save();
+
+        // "Move to cart" from the wish list: the product leaves the wish list once it is in the cart.
+        if ($request->boolean('move_wishlist')) {
+            $request->user()->wishlistProducts()->detach($variant->product_id);
+        }
 
         $message = $wanted > $variant->stock_qty
             ? "Only {$variant->stock_qty} in stock; cart updated to the maximum."
@@ -64,6 +70,10 @@ class CartController extends Controller
         $data = $request->validate(['quantity' => ['required', 'integer', 'min:1', 'max:20']]);
         $item->update(['quantity' => min($data['quantity'], $item->variant->stock_qty)]);
 
+        if ($request->expectsJson()) {
+            return response()->json($this->cartTotals($request, $item) + ['message' => 'Cart updated.']);
+        }
+
         return back()->with('status', 'Cart updated.');
     }
 
@@ -72,7 +82,25 @@ class CartController extends Controller
         $this->authorizeItem($request, $item);
         $item->delete();
 
+        if ($request->expectsJson()) {
+            return response()->json($this->cartTotals($request) + ['message' => 'Item removed.']);
+        }
+
         return back()->with('status', 'Item removed.');
+    }
+
+    /** Numbers the cart page needs to refresh in place. */
+    private function cartTotals(Request $request, ?CartItem $item = null): array
+    {
+        $items = $request->user()->cart->items()->with('variant')->get();
+
+        return [
+            'quantity' => $item?->quantity,
+            'lineTotal' => $item ? $item->quantity * $item->variant->price : null,
+            'subtotal' => $items->sum(fn ($i) => $i->quantity * $i->variant->price),
+            'cartCount' => (int) $items->sum('quantity'),
+            'remaining' => $items->count(),
+        ];
     }
 
     private function authorizeItem(Request $request, CartItem $item): void

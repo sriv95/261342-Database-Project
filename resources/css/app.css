@@ -134,6 +134,51 @@ header {
         transition: background-color 120ms, color 120ms, border-color 120ms;
     }
 
+    .is-loading {
+        pointer-events: none;
+        opacity: 0.75;
+    }
+    .is-loading::before {
+        content: '';
+        display: inline-block;
+        width: 0.95em;
+        height: 0.95em;
+        margin-right: 0.5em;
+        vertical-align: -0.12em;
+        border: 2px solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    .js .no-js-only {
+        display: none;
+    }
+
+    /* Photos fade in when loaded; the tile shimmers meanwhile. */
+    .js .tile img {
+        opacity: 0;
+        transition: opacity 300ms ease-out, transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .js .tile img.loaded {
+        opacity: 1;
+    }
+    .js .tile:has(img:not(.loaded)) {
+        background-image: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
+        background-size: 200% 100%;
+        animation: shimmer 1.2s linear infinite;
+    }
+    @keyframes shimmer {
+        from { background-position: 150% 0; }
+        to { background-position: -50% 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .is-loading::before { animation-duration: 1.6s; }
+        .js .tile:has(img:not(.loaded)) { animation: none; }
+    }
+
     .btn:active:not(:disabled) {
         transform: scale(0.97);
     }

@@ -1,7 +1,14 @@
+@php
+    $variantsLoaded = $product->relationLoaded('variants');
+    $outOfStock = $variantsLoaded && $product->variants->isNotEmpty() && $product->variants->where('stock_qty', '>', 0)->isEmpty();
+@endphp
 <div class="group relative">
     <a href="{{ route('products.show', $product) }}" class="block">
-        <div class="tile aspect-square">
-            <img src="{{ asset($product->images->first()?->path ?? 'images/placeholder.svg') }}" alt="" loading="lazy" class="h-full w-full object-contain p-3">
+        <div class="tile relative aspect-square">
+            <img src="{{ asset($product->images->first()?->path ?? 'images/placeholder.svg') }}" alt="" loading="lazy" class="h-full w-full object-contain p-3 {{ $outOfStock ? 'opacity-50 grayscale' : '' }}">
+            @if ($outOfStock)
+                <span class="absolute left-2 top-2 rounded-full bg-gray-900 px-2.5 py-0.5 text-xs font-medium text-white">Out of stock</span>
+            @endif
         </div>
         <div class="mt-3">
             <p class="text-sm {{ ! empty($dark) ? 'text-line/70' : 'text-gray-500' }}">{{ $product->brand->name ?? '' }}</p>
@@ -19,6 +26,23 @@
             @endisset
         </div>
     </a>
+
+    @if (! empty($moveToCart) && $variantsLoaded)
+        @php $onlyVariant = $product->variants->count() === 1 ? $product->variants->first() : null; @endphp
+        @if ($outOfStock)
+            <p class="mt-3 text-sm font-medium text-gray-500">Currently unavailable</p>
+        @elseif ($onlyVariant)
+            <form method="POST" action="{{ route('cart.store') }}" class="mt-3" data-ajax="cart" data-move>
+                @csrf
+                <input type="hidden" name="variant_id" value="{{ $onlyVariant->id }}">
+                <input type="hidden" name="quantity" value="1">
+                <input type="hidden" name="move_wishlist" value="1">
+                <button class="btn btn-primary w-full !py-1.5 text-sm">Move to cart</button>
+            </form>
+        @else
+            <a href="{{ route('products.show', $product) }}" class="btn btn-line mt-3 w-full !py-1.5 text-sm">Choose options</a>
+        @endif
+    @endif
 
     @if (! empty($showWish))
         @php

@@ -177,7 +177,7 @@ const removeFromWishPage = (form) => {
     reduced ? done() : animate(card, { opacity: 0, transform: 'scale(0.96)' }, { duration: 0.25, ease }).finished.then(done);
 };
 
-const bumpCart = (count) => {
+const bumpCart = (count, silent = false) => {
     const link = document.querySelector('[data-cart-link]');
     if (!link) return;
     let badge = link.querySelector('[data-cart-count]');
@@ -190,26 +190,111 @@ const bumpCart = (count) => {
     badge.textContent = count;
     badge.hidden = count < 1;
     try { sessionStorage.setItem('cartCount', String(count)); } catch (e) { /* storage blocked */ }
-    if (!reduced) animate(badge, { transform: ['scale(1)', 'scale(1.5)', 'scale(1)'] }, { duration: 0.5, ease });
+    if (!reduced && !silent) animate(badge, { transform: ['scale(1)', 'scale(1.5)', 'scale(1)'] }, { duration: 0.5, ease });
+};
+
+const money = (n) => '฿' + Math.round(n).toLocaleString('en-US');
+
+// Pending state: a spinner on text buttons while a request is in flight.
+const spin = (form, on) => {
+    if (['wish', 'cart-update'].includes(form.dataset.ajax)) return;
+    form.querySelectorAll('button:not([data-step])').forEach((b) => {
+        if (b.textContent.trim()) b.classList.toggle('is-loading', on);
+    });
+};
+
+const cartAfter = {
+    'cart-update': (form, data) => {
+        const row = form.closest('[data-cart-row]');
+        const input = form.querySelector('input[name="quantity"]');
+        input.value = data.quantity;
+        row.querySelector('[data-line-total]').textContent = money(data.lineTotal);
+        row.querySelector('[data-stock-warning]')?.classList.toggle('hidden', data.quantity <= Number(form.dataset.stock));
+        document.querySelectorAll('[data-subtotal]').forEach((el) => { el.textContent = money(data.subtotal); });
+        bumpCart(data.cartCount, true);
+    },
+    'cart-remove': (form, data) => {
+        const row = form.closest('[data-cart-row]');
+        document.querySelectorAll('[data-subtotal]').forEach((el) => { el.textContent = money(data.subtotal); });
+        bumpCart(data.cartCount, true);
+        const done = () => { row.remove(); if (!data.remaining) location.reload(); };
+        reduced ? done() : animate(row, { opacity: 0, transform: 'translateX(-16px)' }, { duration: 0.25, ease }).finished.then(done);
+    },
 };
 
 document.addEventListener('submit', async (e) => {
     const form = e.target.closest('form[data-ajax]');
-    if (!form || form.dataset.busy) return;
+    if (!form) return;
     e.preventDefault();
+    if (form.dataset.busy) { form.dataset.again = '1'; return; }
     form.dataset.busy = '1';
+    const row = form.closest('[data-cart-row]');
+    row?.classList.add('opacity-60');
+    spin(form, true);
     try {
         const data = await post(form);
-        if (form.dataset.ajax === 'wish') {
+        const kind = form.dataset.ajax;
+        if (kind === 'wish') {
             applyWish(form, data.wished);
             if (!data.wished) removeFromWishPage(form);
-        } else if (form.dataset.ajax === 'cart') {
+        } else if (kind === 'cart') {
             bumpCart(data.cartCount);
+            if ('move' in form.dataset) removeFromWishPage(form);
+        } else if (cartAfter[kind]) {
+            cartAfter[kind](form, data);
         }
-        toast(data.message);
+        if (kind !== 'cart-update') toast(data.message);
     } catch (err) {
         toast(err.message, true);
     } finally {
+        row?.classList.remove('opacity-60');
+        spin(form, false);
         delete form.dataset.busy;
+        if (form.dataset.again) { delete form.dataset.again; form.requestSubmit(); }
     }
+});
+
+// Cart quantity stepper: instant feedback, one save after the clicking settles.
+const clampQty = (form, value) => Math.min(Number(form.dataset.max) || 20, Math.max(1, Math.round(Number(value)) || 1));
+const queueSave = (form) => {
+    const input = form.querySelector('input[name="quantity"]');
+    const row = form.closest('[data-cart-row]');
+    input.value = clampQty(form, input.value);
+    row.querySelector('[data-line-total]').textContent = money(input.value * Number(row.dataset.price));
+    clearTimeout(form._save);
+    form._save = setTimeout(() => form.requestSubmit(), 350);
+};
+document.addEventListener('click', (e) => {
+    const step = e.target.closest('[data-step]');
+    if (!step) return;
+    const form = step.closest('form');
+    const input = form.querySelector('input[name="quantity"]');
+    input.value = clampQty(form, Number(input.value) + Number(step.dataset.step));
+    queueSave(form);
+});
+document.addEventListener('change', (e) => {
+    const form = e.target.closest('form[data-ajax="cart-update"]');
+    if (form && e.target.name === 'quantity') queueSave(form);
+});
+
+// Plain forms (login, checkout, reviews, address ...): show pending state while the page loads.
+document.addEventListener('submit', (e) => {
+    const form = e.target;
+    if (form.dataset.ajax) return;
+    setTimeout(() => {
+        if (e.defaultPrevented) return;
+        form.querySelectorAll('button:not([type="button"])').forEach((b) => {
+            if (b.textContent.trim()) b.classList.add('is-loading');
+        });
+    }, 0);
+});
+window.addEventListener('pageshow', (e) => {
+    if (e.persisted) document.querySelectorAll('.is-loading').forEach((b) => b.classList.remove('is-loading'));
+});
+
+// Product photos fade in once loaded (the tile shimmers until then).
+document.querySelectorAll('.tile img').forEach((img) => {
+    if (img.complete) { img.classList.add('loaded'); return; }
+    img.addEventListener('load', () => img.classList.add('loaded'), { once: true });
+    img.addEventListener('error', () => img.classList.add('loaded'), { once: true });
 });

@@ -11,7 +11,7 @@ class WishlistController extends Controller
     {
         $products = $request->user()->wishlistProducts()
             ->where('is_active', true)
-            ->with(['images', 'brand'])
+            ->with(['images', 'brand', 'variants'])
             ->withMin('variants', 'price')
             ->withAvg('reviews', 'rating')
             ->withCount('reviews')
