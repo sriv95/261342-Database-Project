@@ -21,15 +21,26 @@ class Product extends Model
     /** Adds `sold_monthly`: units sold in the last 30 days (cancelled orders ignored). */
     public function scopeWithMonthlySold(Builder $query): void
     {
-        $sold = DB::table('order_items')
+        $query->addSelect('products.*')->selectSub(
+            $this->soldUnitsQuery()->where('orders.placed_at', '>=', now()->subDays(30)),
+            'sold_monthly'
+        );
+    }
+
+    /** Adds `total_sold`: all-time units sold (cancelled orders ignored). */
+    public function scopeWithTotalSold(Builder $query): void
+    {
+        $query->addSelect('products.*')->selectSub($this->soldUnitsQuery(), 'total_sold');
+    }
+
+    private function soldUnitsQuery()
+    {
+        return DB::table('order_items')
             ->join('orders', 'orders.id', '=', 'order_items.order_id')
             ->join('product_variants', 'product_variants.id', '=', 'order_items.variant_id')
             ->whereColumn('product_variants.product_id', 'products.id')
             ->where('orders.status', '!=', 'cancelled')
-            ->where('orders.placed_at', '>=', now()->subDays(30))
             ->selectRaw('COALESCE(SUM(order_items.quantity), 0)');
-
-        $query->addSelect('products.*')->selectSub($sold, 'sold_monthly');
     }
 
     public function category(): BelongsTo

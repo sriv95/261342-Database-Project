@@ -10,6 +10,9 @@
                     <span class="text-amber-500">★ {{ number_format($product->reviews_avg_rating, 1) }} <span class="text-gray-400">({{ $product->reviews_count }})</span></span>
                 @endif
             </div>
+            @isset($product->total_sold)
+                <p class="mt-1 text-xs text-gray-500">{{ number_format($product->total_sold) }} sold · {{ number_format($product->reviews_count) }} {{ \Illuminate\Support\Str::plural('review', $product->reviews_count) }}</p>
+            @endisset
             @isset($product->sold_monthly)
                 <p class="mt-1 text-xs font-medium text-orange-600">🔥 {{ number_format($product->sold_monthly) }} sold / month</p>
             @endisset

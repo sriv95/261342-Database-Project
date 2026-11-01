@@ -25,6 +25,7 @@ class ProductController extends Controller
             ->withMin('variants', 'price')
             ->withAvg('reviews', 'rating')
             ->withCount('reviews')
+            ->withTotalSold()
             ->when(($filters['sort'] ?? null) === 'trending', fn ($q) => $q->withMonthlySold())
             ->when($filters['category'] ?? null, fn ($q, $id) => $q->where('category_id', $id))
             ->when($filters['brand'] ?? null, fn ($q, $id) => $q->where('brand_id', $id))
