@@ -5,7 +5,7 @@
 @section('content')
     @php
         $hasFilters = collect($filters ?? [])->only(['q', 'category', 'brand'])->filter()->isNotEmpty();
-        $selectClass = 'field !w-auto rounded-full bg-white pr-9';
+        $selectClass = 'field !w-auto rounded-full bg-white';
     @endphp
 
     <div class="mb-6 flex flex-wrap items-baseline justify-between gap-2">
