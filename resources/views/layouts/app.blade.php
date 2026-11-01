@@ -57,19 +57,5 @@
         @endif
         @yield('content')
     </main>
-
-    <footer class="on-floor relative overflow-hidden bg-floor-deep text-line">
-        <div class="relative mx-auto flex max-w-6xl flex-wrap items-end justify-between gap-6 px-4 py-8">
-            <div>
-                <p class="display flex items-center gap-2 text-lg font-bold">@include('partials.shuttle', ['class' => 'h-6 w-6']) {{ config('app.name') }}</p>
-                <p class="mt-1 text-sm text-line/70">Rackets, shoes and shuttlecocks for club players.</p>
-            </div>
-            <div class="flex gap-5 text-sm">
-                <a href="{{ route('products.index') }}" class="hover:underline hover:underline-offset-4">All products</a>
-                <a href="{{ route('products.index', ['sort' => 'trending']) }}" class="hover:underline hover:underline-offset-4">Trending</a>
-            </div>
-            <p class="w-full text-xs text-line/60">261342 Term Project. Demo shop, no real payment is taken.</p>
-        </div>
-    </footer>
 </body>
 </html>
