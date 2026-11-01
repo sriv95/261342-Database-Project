@@ -5,16 +5,16 @@
 @section('admin')
     <a href="{{ route('admin.orders.index') }}" class="text-sm text-gray-500 hover:underline">← Orders</a>
     <div class="mt-2 mb-4 flex flex-wrap items-center justify-between gap-3">
-        <h1 class="text-2xl font-bold">Order #{{ $order->id }}</h1>
+        <h1 class="display text-3xl">Order #{{ $order->id }}</h1>
         @if ($order->status === 'cancelled')
-            <span class="rounded bg-red-100 px-3 py-1 text-sm font-medium uppercase text-red-700">Cancelled</span>
+            <span class="rounded-full bg-red-100 px-3 py-1 text-sm font-medium text-red-700">Cancelled</span>
         @else
             <form method="POST" action="{{ route('admin.orders.status', $order) }}" class="flex items-center gap-2 text-sm">
                 @csrf @method('PATCH')
                 <select name="status" class="rounded border border-gray-300 px-3 py-1.5">
                     @foreach ($statuses as $s)<option value="{{ $s }}" @selected($order->status === $s)>{{ ucfirst($s) }}</option>@endforeach
                 </select>
-                <button class="rounded bg-gray-900 px-3 py-1.5 text-white hover:bg-gray-700" onclick="return this.form.status.value !== 'cancelled' || confirm('Cancel this order and return stock?')">Update</button>
+                <button class="rounded-full bg-gray-900 px-3 py-1.5 text-white hover:bg-gray-700" onclick="return this.form.status.value !== 'cancelled' || confirm('Cancel this order and return stock?')">Update</button>
             </form>
         @endif
     </div>

@@ -1,22 +1,21 @@
-<div class="group relative overflow-hidden rounded-lg border border-gray-200 bg-white hover:shadow-md">
+<div class="group relative">
     <a href="{{ route('products.show', $product) }}" class="block">
-        <img src="{{ asset($product->images->first()?->path ?? 'images/placeholder.svg') }}" alt="{{ $product->name }}" class="aspect-square w-full object-cover">
-        <div class="p-3">
-            <p class="text-xs text-gray-500">{{ $product->brand->name ?? '' }}</p>
-            <h3 class="font-medium group-hover:text-emerald-700">{{ $product->name }}</h3>
-            <div class="mt-1 flex items-center justify-between text-sm">
-                <span class="font-semibold">from ฿{{ number_format($product->variants_min_price) }}</span>
+        <div class="tile aspect-square">
+            <img src="{{ asset($product->images->first()?->path ?? 'images/placeholder.svg') }}" alt="" loading="lazy" class="h-full w-full object-contain p-3">
+        </div>
+        <div class="mt-3">
+            <p class="text-sm text-gray-500">{{ $product->brand->name ?? '' }}</p>
+            <h3 class="font-medium leading-snug group-hover:underline group-hover:underline-offset-4">{{ $product->name }}</h3>
+            <div class="mt-1 flex items-baseline justify-between gap-2">
+                <span class="price text-lg">from ฿{{ number_format($product->variants_min_price) }}</span>
                 @if ($product->reviews_count)
-                    <span class="text-amber-500">★ {{ number_format($product->reviews_avg_rating, 1) }} <span class="text-gray-400">({{ $product->reviews_count }})</span></span>
-                @elseif (isset($product->total_sold))
-                    <span class="text-gray-400">☆ (0)</span>
+                    <span class="whitespace-nowrap text-sm text-gray-500"><span class="text-amber-500" aria-hidden="true">★</span> {{ number_format($product->reviews_avg_rating, 1) }} <span class="text-gray-400">({{ $product->reviews_count }})</span></span>
                 @endif
             </div>
-            @isset($product->total_sold)
-                <p class="mt-1 text-xs text-gray-500">{{ number_format($product->total_sold) }} sold</p>
-            @endisset
             @isset($product->sold_monthly)
-                <p class="mt-1 text-xs font-medium text-orange-600">🔥 {{ number_format($product->sold_monthly) }} sold / month</p>
+                <p class="mt-1.5"><span class="inline-block rounded-full bg-shuttle/25 px-2.5 py-0.5 text-xs font-medium text-amber-900">Selling fast: {{ number_format($product->sold_monthly) }} sold this month</span></p>
+            @elseif (isset($product->total_sold))
+                <p class="mt-1 text-sm text-gray-500">{{ number_format($product->total_sold) }} sold</p>
             @endisset
         </div>
     </a>
@@ -24,7 +23,7 @@
     @if (! empty($showWish))
         @php
             $isWished = in_array($product->id, $wishedIds ?? [], true);
-            $heartClass = 'absolute right-2 top-2 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow transition hover:scale-110 focus:opacity-100 '
+            $heartClass = 'absolute right-2 top-2 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-sm transition hover:scale-110 focus:opacity-100 '
                 .($isWished ? 'opacity-100' : 'opacity-0 group-hover:opacity-100 pointer-coarse:opacity-100');
             $heartIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.8" class="h-5 w-5 '
                 .($isWished ? 'fill-red-500 stroke-red-500' : 'fill-none stroke-gray-600 hover:stroke-red-500')

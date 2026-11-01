@@ -4,7 +4,7 @@
 
 @section('admin')
     <div class="mb-4 flex items-center justify-between">
-        <h1 class="text-2xl font-bold">{{ $product->name }}</h1>
+        <h1 class="display text-3xl">{{ $product->name }}</h1>
         <form method="POST" action="{{ route('admin.products.destroy', $product) }}" onsubmit="return confirm('Delete this product? Products with orders are hidden instead.')">
             @csrf @method('DELETE')
             <button class="text-sm text-red-600 hover:underline">Delete product</button>
@@ -17,7 +17,7 @@
         @if ($product->images->isNotEmpty())
             <img src="{{ asset($product->images->firstWhere('is_primary', true)?->path ?? $product->images->first()->path) }}" class="h-24 w-24 rounded border border-gray-200 object-cover" alt="">
         @endif
-        <button class="rounded bg-emerald-600 px-5 py-2 text-sm font-medium text-white hover:bg-emerald-700">Save product</button>
+        <button class="rounded-full bg-emerald-600 px-5 py-2 text-sm font-medium text-white hover:bg-emerald-700">Save product</button>
     </form>
 
     <h2 class="mt-8 mb-2 text-lg font-semibold">Variants</h2>
@@ -31,7 +31,7 @@
                     <label>Option<input name="option_name" value="{{ $variant->option_name }}" class="mt-1 block w-32 rounded border border-gray-300 px-2 py-1"></label>
                     <label>Price<input name="price" type="number" step="0.01" min="0" value="{{ $variant->price }}" required class="mt-1 block w-28 rounded border border-gray-300 px-2 py-1"></label>
                     <label>Stock<input name="stock_qty" type="number" min="0" value="{{ $variant->stock_qty }}" required class="mt-1 block w-20 rounded border border-gray-300 px-2 py-1"></label>
-                    <button class="rounded bg-gray-900 px-3 py-1.5 text-white hover:bg-gray-700">Save</button>
+                    <button class="rounded-full bg-gray-900 px-3 py-1.5 text-white hover:bg-gray-700">Save</button>
                 </form>
                 <form method="POST" action="{{ route('admin.variants.destroy', $variant) }}">
                     @csrf @method('DELETE')
@@ -49,7 +49,7 @@
         <label>Option<input name="option_name" class="mt-1 block w-32 rounded border border-gray-300 px-2 py-1"></label>
         <label>Price<input name="price" type="number" step="0.01" min="0" required class="mt-1 block w-28 rounded border border-gray-300 px-2 py-1"></label>
         <label>Stock<input name="stock_qty" type="number" min="0" value="0" required class="mt-1 block w-20 rounded border border-gray-300 px-2 py-1"></label>
-        <button class="rounded bg-emerald-600 px-3 py-1.5 text-white hover:bg-emerald-700">Add variant</button>
+        <button class="rounded-full bg-emerald-600 px-3 py-1.5 text-white hover:bg-emerald-700">Add variant</button>
     </form>
     @foreach (['sku', 'color', 'option_name', 'price', 'stock_qty'] as $f)
         @error($f) <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror

@@ -4,12 +4,12 @@
 
 @section('admin')
     <div class="mb-4 flex items-center justify-between">
-        <h1 class="text-2xl font-bold">Users</h1>
+        <h1 class="display text-3xl">Users</h1>
         <form method="GET"><input type="search" name="q" value="{{ request('q') }}" placeholder="Search name or email" class="rounded border border-gray-300 px-3 py-1.5 text-sm"></form>
     </div>
 
     <table class="w-full rounded-lg border border-gray-200 bg-white text-sm">
-        <thead class="bg-gray-50 text-left text-xs uppercase text-gray-500"><tr><th class="p-3">Name</th><th>Email</th><th>Joined</th><th class="text-right">Orders</th><th class="text-right">Spent</th><th class="p-3">Role</th></tr></thead>
+        <thead class="bg-gray-50 text-left text-xs text-gray-500"><tr><th class="p-3">Name</th><th>Email</th><th>Joined</th><th class="text-right">Orders</th><th class="text-right">Spent</th><th class="p-3">Role</th></tr></thead>
         <tbody>
             @foreach ($users as $user)
                 <tr class="border-t border-gray-100">

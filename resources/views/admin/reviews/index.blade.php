@@ -3,7 +3,7 @@
 @section('title', 'Admin reviews')
 
 @section('admin')
-    <h1 class="mb-4 text-2xl font-bold">Reviews</h1>
+    <h1 class="display mb-4 text-3xl">Reviews</h1>
     @forelse ($reviews as $review)
         <article class="mb-3 flex items-start justify-between gap-4 rounded-lg border border-gray-200 bg-white p-4 text-sm">
             <div>

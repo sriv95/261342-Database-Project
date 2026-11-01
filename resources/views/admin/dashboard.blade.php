@@ -3,14 +3,14 @@
 @section('title', 'Admin dashboard')
 
 @section('admin')
-    <h1 class="mb-4 text-2xl font-bold">Sales report</h1>
+    <h1 class="display mb-4 text-3xl">Sales report</h1>
     <p class="mb-4 text-xs text-gray-500">Counts orders with status paid, shipped or done. Cancelled and pending orders are excluded.</p>
 
     <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
         @foreach ([['Revenue', '฿'.number_format($kpi->revenue)], ['Orders', number_format($kpi->orders)], ['Avg. order', '฿'.number_format($kpi->average)], ['Customers', number_format($customers)]] as [$label, $value])
             <div class="rounded-lg border border-gray-200 bg-white p-4">
-                <p class="text-xs uppercase text-gray-500">{{ $label }}</p>
-                <p class="text-2xl font-bold">{{ $value }}</p>
+                <p class="text-xs text-gray-500">{{ $label }}</p>
+                <p class="display text-3xl">{{ $value }}</p>
             </div>
         @endforeach
     </div>
@@ -26,7 +26,7 @@
                 @forelse ($rows as $row)
                     <div class="mb-1 flex items-center gap-2 text-xs">
                         <span class="w-20 shrink-0 text-gray-500">{{ $row->$key }}</span>
-                        <div class="h-4 flex-1 rounded bg-gray-100"><div class="h-4 rounded bg-emerald-500" style="width: {{ round($row->revenue / $max * 100) }}%"></div></div>
+                        <div class="h-4 flex-1 rounded bg-gray-100"><div class="h-4 rounded bg-emerald-600" style="width: {{ round($row->revenue / $max * 100) }}%"></div></div>
                         <span class="w-24 shrink-0 text-right">฿{{ number_format($row->revenue) }}</span>
                     </div>
                 @empty
@@ -41,7 +41,7 @@
             <section class="rounded-lg border border-gray-200 bg-white p-4">
                 <h2 class="mb-3 font-semibold">{{ $title }}</h2>
                 <table class="w-full text-sm">
-                    <thead class="text-left text-xs uppercase text-gray-500"><tr><th>Name</th><th class="text-right">Units</th><th class="text-right">Revenue</th></tr></thead>
+                    <thead class="text-left text-xs text-gray-500"><tr><th>Name</th><th class="text-right">Units</th><th class="text-right">Revenue</th></tr></thead>
                     <tbody>
                         @forelse ($rows as $row)
                             <tr class="border-t border-gray-100"><td class="py-1">{{ $row->name }}</td><td class="text-right">{{ $row->units }}</td><td class="text-right">฿{{ number_format($row->revenue) }}</td></tr>

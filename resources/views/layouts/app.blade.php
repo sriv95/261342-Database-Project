@@ -3,50 +3,73 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Home') · {{ config('app.name') }}</title>
+    <title>@yield('title', 'Home') | {{ config('app.name') }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Kanit:ital,wght@0,500;1,500;1,600;1,700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen bg-gray-50 text-gray-900 antialiased flex flex-col">
-    <header class="bg-white border-b border-gray-200">
-        <nav class="mx-auto max-w-6xl px-4 py-3 flex items-center gap-6">
-            <a href="{{ route('home') }}" class="text-lg font-bold text-emerald-700">🏸 {{ config('app.name') }}</a>
-            <a href="{{ route('products.index') }}" class="text-sm font-medium hover:text-emerald-700">Products</a>
+<body class="flex min-h-screen flex-col antialiased">
+    <header class="on-floor bg-floor text-line">
+        <nav class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-3 px-4 py-3">
+            <a href="{{ route('home') }}" class="display flex items-center gap-2 text-xl font-bold">
+                @include('partials.shuttle', ['class' => 'h-7 w-7 text-line'])
+                {{ config('app.name') }}
+            </a>
+            <a href="{{ route('products.index') }}" class="text-[0.9375rem] font-medium hover:underline hover:underline-offset-4">Products</a>
 
-            <div class="ml-auto flex items-center gap-4 text-sm">
+            <form method="GET" action="{{ route('products.index') }}" role="search" class="order-last w-full sm:order-none sm:w-auto sm:min-w-56 sm:flex-1 sm:max-w-sm">
+                <label class="sr-only" for="nav-search">Search products</label>
+                <input id="nav-search" type="search" name="q" placeholder="Search rackets, shoes, shuttles" class="w-full rounded-full border-0 bg-line/12 px-4 py-1.5 text-sm text-line placeholder:text-line/60 focus:bg-line focus:text-gray-900 focus:placeholder:text-gray-400">
+            </form>
+
+            <div class="ml-auto flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.9375rem]">
                 @auth
                     @if (auth()->user()->isAdmin())
-                        <a href="{{ route('admin.dashboard') }}" class="rounded bg-gray-900 px-3 py-1 font-medium text-white hover:bg-gray-700">Admin</a>
+                        <a href="{{ route('admin.dashboard') }}" class="rounded-full bg-shuttle px-3.5 py-1 text-sm font-medium text-gray-900 hover:bg-white">Admin</a>
                     @endif
-                    <a href="{{ route('wishlist.index') }}" class="font-medium hover:text-emerald-700">Wish list</a>
-                    <a href="{{ route('orders.index') }}" class="font-medium hover:text-emerald-700">Orders</a>
-                    <a href="{{ route('cart.index') }}" class="font-medium hover:text-emerald-700">Cart @if ($cartCount)<span class="ml-1 rounded-full bg-emerald-600 px-2 py-0.5 text-xs text-white">{{ $cartCount }}</span>@endif</a>
-                    <a href="{{ route('account.show') }}" class="text-gray-600 hover:text-emerald-700">Hi, {{ auth()->user()->name }}</a>
+                    <a href="{{ route('wishlist.index') }}" class="font-medium hover:underline hover:underline-offset-4">Wish list</a>
+                    <a href="{{ route('orders.index') }}" class="font-medium hover:underline hover:underline-offset-4">Orders</a>
+                    <a href="{{ route('cart.index') }}" class="font-medium hover:underline hover:underline-offset-4">Cart @if ($cartCount)<span class="ml-1 inline-block min-w-5 rounded-full bg-shuttle px-1.5 text-center text-xs font-semibold leading-5 text-gray-900">{{ $cartCount }}</span>@endif</a>
+                    <a href="{{ route('account.show') }}" class="text-line/75 hover:text-line hover:underline hover:underline-offset-4" title="My account">{{ auth()->user()->name }}</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button class="font-medium hover:text-emerald-700">Log out</button>
+                        <button class="font-medium hover:underline hover:underline-offset-4">Log out</button>
                     </form>
                 @else
-                    <a href="{{ route('login') }}" class="font-medium hover:text-emerald-700">Log in</a>
-                    <a href="{{ route('register') }}" class="rounded bg-emerald-600 px-3 py-1.5 font-medium text-white hover:bg-emerald-700">Register</a>
+                    <a href="{{ route('login') }}" class="font-medium hover:underline hover:underline-offset-4">Log in</a>
+                    <a href="{{ route('register') }}" class="btn btn-light !py-1.5">Register</a>
                 @endauth
             </div>
         </nav>
     </header>
 
-    <main class="mx-auto w-full max-w-6xl flex-1 px-4 py-8">
+    @yield('hero')
+
+    <main class="mx-auto w-full max-w-6xl flex-1 px-4 py-10">
         @if (session('status'))
-            <div class="mb-6 rounded border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">{{ session('status') }}</div>
+            <div role="status" class="mb-6 rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">{{ session('status') }}</div>
         @endif
         @if ($errors->hasAny(['stock', 'address_id', 'review', 'variant', 'user']))
-            <div class="mb-6 rounded border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <div role="alert" class="mb-6 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
                 @foreach (['stock', 'address_id', 'review', 'variant', 'user'] as $key)@foreach ($errors->get($key) as $message)<p>{{ $message }}</p>@endforeach @endforeach
             </div>
         @endif
         @yield('content')
     </main>
 
-    <footer class="border-t border-gray-200 bg-white py-4 text-center text-xs text-gray-500">
-        {{ config('app.name') }} · 261342 Term Project
+    <footer class="on-floor relative overflow-hidden bg-floor-deep text-line">
+        <div class="relative mx-auto flex max-w-6xl flex-wrap items-end justify-between gap-6 px-4 py-8">
+            <div>
+                <p class="display flex items-center gap-2 text-lg font-bold">@include('partials.shuttle', ['class' => 'h-6 w-6']) {{ config('app.name') }}</p>
+                <p class="mt-1 text-sm text-line/70">Rackets, shoes and shuttlecocks for club players.</p>
+            </div>
+            <div class="flex gap-5 text-sm">
+                <a href="{{ route('products.index') }}" class="hover:underline hover:underline-offset-4">All products</a>
+                <a href="{{ route('products.index', ['sort' => 'trending']) }}" class="hover:underline hover:underline-offset-4">Trending</a>
+            </div>
+            <p class="w-full text-xs text-line/60">261342 Term Project. Demo shop, no real payment is taken.</p>
+        </div>
     </footer>
 </body>
 </html>

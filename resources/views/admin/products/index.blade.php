@@ -4,13 +4,13 @@
 
 @section('admin')
     <div class="mb-4 flex items-center justify-between gap-4">
-        <h1 class="text-2xl font-bold">Products</h1>
+        <h1 class="display text-3xl">Products</h1>
         <form method="GET" class="ml-auto"><input type="search" name="q" value="{{ request('q') }}" placeholder="Search" class="rounded border border-gray-300 px-3 py-1.5 text-sm"></form>
-        <a href="{{ route('admin.products.create') }}" class="rounded bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">New product</a>
+        <a href="{{ route('admin.products.create') }}" class="rounded-full bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">New product</a>
     </div>
 
     <table class="w-full rounded-lg border border-gray-200 bg-white text-sm">
-        <thead class="bg-gray-50 text-left text-xs uppercase text-gray-500"><tr><th class="p-3">Name</th><th>Category</th><th>Brand</th><th class="text-right">Variants</th><th class="text-right">Stock</th><th class="p-3">Status</th><th></th></tr></thead>
+        <thead class="bg-gray-50 text-left text-xs text-gray-500"><tr><th class="p-3">Name</th><th>Category</th><th>Brand</th><th class="text-right">Variants</th><th class="text-right">Stock</th><th class="p-3">Status</th><th></th></tr></thead>
         <tbody>
             @foreach ($products as $product)
                 <tr class="border-t border-gray-100">

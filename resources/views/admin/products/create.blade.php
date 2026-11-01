@@ -3,7 +3,7 @@
 @section('title', 'New product')
 
 @section('admin')
-    <h1 class="mb-4 text-2xl font-bold">New product</h1>
+    <h1 class="display mb-4 text-3xl">New product</h1>
     <form method="POST" action="{{ route('admin.products.store') }}" enctype="multipart/form-data" class="space-y-6 rounded-lg border border-gray-200 bg-white p-4">
         @csrf
         @include('admin.products._fields')
@@ -20,6 +20,6 @@
                 @endforeach
             </div>
         </div>
-        <button class="rounded bg-emerald-600 px-5 py-2 font-medium text-white hover:bg-emerald-700">Create product</button>
+        <button class="rounded-full bg-emerald-600 px-5 py-2 font-medium text-white hover:bg-emerald-700">Create product</button>
     </form>
 @endsection
