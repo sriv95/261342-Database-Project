@@ -42,6 +42,27 @@
     --color-emerald-900: #053d2f;
 }
 
+/* Page-to-page crossfade; the header stays put (browsers without support just navigate). */
+@view-transition {
+    navigation: auto;
+}
+::view-transition-old(root) {
+    animation: 160ms ease-out both vt-out;
+}
+::view-transition-new(root) {
+    animation: 260ms ease-out both vt-in;
+}
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in { from { opacity: 0; } }
+header {
+    view-transition-name: site-header;
+}
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
+        animation: none !important;
+    }
+}
+
 @layer base {
     html {
         background: var(--color-gray-50);
@@ -111,6 +132,35 @@
         font-weight: 500;
         line-height: 1.4;
         transition: background-color 120ms, color 120ms, border-color 120ms;
+    }
+
+    .btn:active:not(:disabled) {
+        transform: scale(0.97);
+    }
+
+    /* Hidden until Motion reveals them. Visible again if JS never boots or motion is reduced. */
+    .js [data-stagger] > * {
+        opacity: 0;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .js [data-stagger] > * { opacity: 1; }
+    }
+
+    .tile img {
+        transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .group:hover .tile img {
+        transform: scale(1.06);
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .group:hover .tile img { transform: none; }
+    }
+
+    .court > a {
+        transition: background-color 150ms, padding-left 200ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .court > a:hover {
+        padding-left: 1.5rem;
     }
 
     .btn-primary {

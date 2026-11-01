@@ -12,7 +12,7 @@
         @include('partials.status-badge', ['status' => $order->status])
     </div>
 
-    <div class="border-t border-gray-200">
+    <div data-stagger class="border-t border-gray-200">
         @foreach ($order->items as $item)
             <div class="flex justify-between gap-4 border-b border-gray-200 py-4">
                 <div>

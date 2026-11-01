@@ -13,7 +13,7 @@
         </div>
     @else
         <div class="grid items-start gap-8 lg:grid-cols-3">
-            <div class="border-t border-gray-200 lg:col-span-2">
+            <div data-stagger class="border-t border-gray-200 lg:col-span-2">
                 @foreach ($items as $item)
                     <div class="flex flex-wrap items-center gap-x-4 gap-y-3 border-b border-gray-200 py-5">
                         <a href="{{ route('products.show', $item->variant->product) }}" class="tile h-20 w-20 shrink-0">

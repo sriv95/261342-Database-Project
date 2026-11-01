@@ -6,11 +6,11 @@
     <h1 class="display mb-4 text-3xl">Sales report</h1>
     <p class="mb-4 text-xs text-gray-500">Counts orders with status paid, shipped or done. Cancelled and pending orders are excluded.</p>
 
-    <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+    <div data-stagger class="grid grid-cols-2 gap-4 md:grid-cols-4">
         @foreach ([['Revenue', '฿'.number_format($kpi->revenue)], ['Orders', number_format($kpi->orders)], ['Avg. order', '฿'.number_format($kpi->average)], ['Customers', number_format($customers)]] as [$label, $value])
             <div class="rounded-lg border border-gray-200 bg-white p-4">
                 <p class="text-xs text-gray-500">{{ $label }}</p>
-                <p class="display text-3xl">{{ $value }}</p>
+                <p class="display text-3xl" data-count="{{ preg_replace('/[^0-9.]/', '', $value) }}" data-prefix="{{ str_starts_with($value, '฿') ? '฿' : '' }}">{{ $value }}</p>
             </div>
         @endforeach
     </div>
@@ -26,7 +26,7 @@
         ]);
     @endphp
 
-    <div class="mt-8 grid gap-6 lg:grid-cols-2">
+    <div data-stagger class="mt-8 grid gap-6 lg:grid-cols-2">
         @foreach ([
             ['Revenue by day (last 30 days)', 'line', $dailyChart, 'day', $daily, 'Revenue by day chart'],
             ['Revenue by month (last 12 months)', 'bar', $monthlyChart, 'month', $monthly, 'Revenue by month chart'],
@@ -50,7 +50,7 @@
         @endforeach
     </div>
 
-    <div class="mt-6 grid gap-6 lg:grid-cols-2">
+    <div data-stagger class="mt-6 grid gap-6 lg:grid-cols-2">
         @foreach ([['Sales by category', $byCategory], ['Sales by brand', $byBrand]] as [$title, $rows])
             <section class="rounded-lg border border-gray-200 bg-white p-4">
                 <h2 class="mb-3 font-semibold">{{ $title }}</h2>
@@ -71,7 +71,7 @@
         @endforeach
     </div>
 
-    <div class="mt-6 grid gap-6 lg:grid-cols-3">
+    <div data-stagger class="mt-6 grid gap-6 lg:grid-cols-3">
         <section class="rounded-lg border border-gray-200 bg-white p-4">
             <h2 class="mb-3 font-semibold">Top selling products</h2>
             <table class="w-full text-sm">

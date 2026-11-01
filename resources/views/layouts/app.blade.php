@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Kanit:ital,wght@0,500;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__motionReady)document.documentElement.classList.remove('js')},3000)</script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="flex min-h-screen flex-col antialiased">
@@ -30,7 +31,7 @@
                     @endif
                     <a href="{{ route('wishlist.index') }}" class="font-medium hover:underline hover:underline-offset-4">Wish list</a>
                     <a href="{{ route('orders.index') }}" class="font-medium hover:underline hover:underline-offset-4">Orders</a>
-                    <a href="{{ route('cart.index') }}" class="font-medium hover:underline hover:underline-offset-4">Cart @if ($cartCount)<span class="ml-1 inline-block min-w-5 rounded-full bg-shuttle px-1.5 text-center text-xs font-semibold leading-5 text-gray-900">{{ $cartCount }}</span>@endif</a>
+                    <a href="{{ route('cart.index') }}" class="font-medium hover:underline hover:underline-offset-4">Cart @if ($cartCount)<span data-cart-count="{{ $cartCount }}" class="ml-1 inline-block min-w-5 rounded-full bg-shuttle px-1.5 text-center text-xs font-semibold leading-5 text-gray-900">{{ $cartCount }}</span>@endif</a>
                     <a href="{{ route('account.show') }}" class="text-line/75 hover:text-line hover:underline hover:underline-offset-4" title="My account">{{ auth()->user()->name }}</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
@@ -48,10 +49,10 @@
 
     <main class="mx-auto w-full max-w-6xl flex-1 px-4 py-10">
         @if (session('status'))
-            <div role="status" class="mb-6 rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">{{ session('status') }}</div>
+            <div role="status" data-flash class="mb-6 rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">{{ session('status') }}</div>
         @endif
         @if ($errors->hasAny(['stock', 'address_id', 'review', 'variant', 'user']))
-            <div role="alert" class="mb-6 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+            <div role="alert" data-flash class="mb-6 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
                 @foreach (['stock', 'address_id', 'review', 'variant', 'user'] as $key)@foreach ($errors->get($key) as $message)<p>{{ $message }}</p>@endforeach @endforeach
             </div>
         @endif

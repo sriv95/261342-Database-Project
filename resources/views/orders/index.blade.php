@@ -5,6 +5,7 @@
 @section('content')
     <h1 class="display mb-6 text-4xl">My orders</h1>
 
+    <div data-stagger>
     @forelse ($orders as $order)
         <a href="{{ route('orders.show', $order) }}" class="flex flex-wrap items-center justify-between gap-3 border-b border-gray-200 py-4 first:border-t hover:bg-white">
             <div>
@@ -23,6 +24,7 @@
             <a href="{{ route('products.index') }}" class="btn btn-primary mt-5">Browse products</a>
         </div>
     @endforelse
+    </div>
 
     <div class="mt-6">{{ $orders->links() }}</div>
 @endsection

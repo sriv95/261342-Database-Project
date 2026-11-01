@@ -149,7 +149,7 @@
             @endauth
         </div>
 
-        <div class="md:col-span-2">
+        <div data-stagger class="md:col-span-2">
             @forelse ($product->reviews as $review)
                 <article class="border-b border-gray-200 py-5 first:pt-0 last:border-b-0">
                     <div class="flex items-center justify-between gap-3">
