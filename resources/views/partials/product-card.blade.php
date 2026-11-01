@@ -13,7 +13,7 @@
                 @endif
             </div>
             @isset($product->sold_monthly)
-                <p class="mt-1.5"><span class="inline-block rounded-full bg-shuttle/25 px-2.5 py-0.5 text-xs font-medium text-amber-900">Selling fast: {{ number_format($product->sold_monthly) }} sold this month</span></p>
+                <p class="mt-1.5"><span class="inline-block rounded-full bg-shuttle/25 px-2.5 py-0.5 text-xs font-medium text-amber-900">{{ number_format($product->sold_monthly) }} sold this month</span></p>
             @elseif (isset($product->total_sold))
                 <p class="mt-1 text-sm {{ ! empty($dark) ? 'text-line/70' : 'text-gray-500' }}">{{ number_format($product->total_sold) }} sold</p>
             @endisset
