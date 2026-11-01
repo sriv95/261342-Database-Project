@@ -16,7 +16,7 @@ class ProductController extends Controller
             'category' => ['nullable', 'integer'],
             'brand' => ['nullable', 'integer'],
             'q' => ['nullable', 'string', 'max:100'],
-            'sort' => ['nullable', 'in:newest,price_asc,price_desc,rating'],
+            'sort' => ['nullable', 'in:newest,trending,price_asc,price_desc,rating'],
         ]);
 
         $products = Product::query()
@@ -25,6 +25,7 @@ class ProductController extends Controller
             ->withMin('variants', 'price')
             ->withAvg('reviews', 'rating')
             ->withCount('reviews')
+            ->when(($filters['sort'] ?? null) === 'trending', fn ($q) => $q->withMonthlySold())
             ->when($filters['category'] ?? null, fn ($q, $id) => $q->where('category_id', $id))
             ->when($filters['brand'] ?? null, fn ($q, $id) => $q->where('brand_id', $id))
             ->when($filters['q'] ?? null, fn ($q, $term) => $q->where('name', 'like', "%{$term}%"))
@@ -34,6 +35,7 @@ class ProductController extends Controller
                     'price_asc' => $q->orderBy('variants_min_price'),
                     'price_desc' => $q->orderByDesc('variants_min_price'),
                     'rating' => $q->orderByDesc('reviews_avg_rating'),
+                    'trending' => $q->orderByDesc('sold_monthly')->orderByDesc('id'),
                     default => $q->latest('id'),
                 }
             )

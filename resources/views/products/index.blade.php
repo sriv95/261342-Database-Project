@@ -20,7 +20,7 @@
             @endforeach
         </select>
         <select name="sort" class="rounded border border-gray-300 px-3 py-2 text-sm">
-            @foreach (['newest' => 'Newest', 'price_asc' => 'Price: low to high', 'price_desc' => 'Price: high to low', 'rating' => 'Top rated'] as $value => $label)
+            @foreach (['newest' => 'Newest', 'trending' => 'Trending', 'price_asc' => 'Price: low to high', 'price_desc' => 'Price: high to low', 'rating' => 'Top rated'] as $value => $label)
                 <option value="{{ $value }}" @selected(($filters['sort'] ?? 'newest') === $value)>{{ $label }}</option>
             @endforeach
         </select>
